@@ -31,12 +31,12 @@ public class JFrmSistemaAlquilerGuanaRent extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jToggleButton1 = new javax.swing.JToggleButton();
-        jToggleButton2 = new javax.swing.JToggleButton();
-        jToggleButton3 = new javax.swing.JToggleButton();
-        jToggleButton4 = new javax.swing.JToggleButton();
-        jToggleButton5 = new javax.swing.JToggleButton();
-        jToggleButton6 = new javax.swing.JToggleButton();
+        btnPropietarios = new javax.swing.JToggleButton();
+        btnViviendas = new javax.swing.JToggleButton();
+        btnInquilinos = new javax.swing.JToggleButton();
+        btnAlquileres = new javax.swing.JToggleButton();
+        btnMensualidad = new javax.swing.JToggleButton();
+        btnGanancias = new javax.swing.JToggleButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         lblTituloUsuario = new javax.swing.JLabel();
@@ -59,34 +59,39 @@ public class JFrmSistemaAlquilerGuanaRent extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
-        jToggleButton1.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
-        jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Propietario8.png"))); // NOI18N
-        jToggleButton1.setText("Propietarios");
-
-        jToggleButton2.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
-        jToggleButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/vivienda8.png"))); // NOI18N
-        jToggleButton2.setText("Viviendas");
-
-        jToggleButton3.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
-        jToggleButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/inqulino8.png"))); // NOI18N
-        jToggleButton3.setText("Inquilinos");
-
-        jToggleButton4.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
-        jToggleButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/alquileres8.png"))); // NOI18N
-        jToggleButton4.setText("Alquileres");
-        jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnPropietarios.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
+        btnPropietarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Propietario8.png"))); // NOI18N
+        btnPropietarios.setText("Propietarios");
+        btnPropietarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton4ActionPerformed(evt);
+                btnPropietariosActionPerformed(evt);
             }
         });
 
-        jToggleButton5.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
-        jToggleButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/mensualidad8.png"))); // NOI18N
-        jToggleButton5.setText("Mensualidad");
+        btnViviendas.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
+        btnViviendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/vivienda8.png"))); // NOI18N
+        btnViviendas.setText("Viviendas");
 
-        jToggleButton6.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
-        jToggleButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Ganancias.png"))); // NOI18N
-        jToggleButton6.setText("Ganancias");
+        btnInquilinos.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
+        btnInquilinos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/inqulino8.png"))); // NOI18N
+        btnInquilinos.setText("Inquilinos");
+
+        btnAlquileres.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
+        btnAlquileres.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/alquileres8.png"))); // NOI18N
+        btnAlquileres.setText("Alquileres");
+        btnAlquileres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlquileresActionPerformed(evt);
+            }
+        });
+
+        btnMensualidad.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
+        btnMensualidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/mensualidad8.png"))); // NOI18N
+        btnMensualidad.setText("Mensualidad");
+
+        btnGanancias.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
+        btnGanancias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Ganancias.png"))); // NOI18N
+        btnGanancias.setText("Ganancias");
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LogoGuanaRent1.png"))); // NOI18N
@@ -102,58 +107,54 @@ public class JFrmSistemaAlquilerGuanaRent extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jSeparator2)
-                        .addContainerGap())
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 7, Short.MAX_VALUE)
                         .addComponent(lblTituloUsuario)
-                        .addGap(16, 16, 16))))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jSeparator1)
+                        .addGap(10, 10, 10))
+                    .addComponent(jSeparator1))
                 .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jToggleButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jToggleButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jToggleButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jToggleButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jToggleButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addGap(19, 19, 19))
+                .addGap(17, 17, 17))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnPropietarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnViviendas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnInquilinos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAlquileres, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnMensualidad, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGanancias, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
+                .addGap(11, 11, 11)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lblTituloUsuario)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToggleButton1)
+                .addGap(18, 18, 18)
+                .addComponent(btnPropietarios)
                 .addGap(19, 19, 19)
-                .addComponent(jToggleButton2)
+                .addComponent(btnViviendas)
                 .addGap(19, 19, 19)
-                .addComponent(jToggleButton3)
+                .addComponent(btnInquilinos)
                 .addGap(19, 19, 19)
-                .addComponent(jToggleButton4)
+                .addComponent(btnAlquileres)
                 .addGap(19, 19, 19)
-                .addComponent(jToggleButton5)
+                .addComponent(btnMensualidad)
                 .addGap(19, 19, 19)
-                .addComponent(jToggleButton6)
-                .addGap(19, 19, 19))
+                .addComponent(btnGanancias)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/GuanaRent - Poster Publicitario.png"))); // NOI18N
@@ -165,15 +166,14 @@ public class JFrmSistemaAlquilerGuanaRent extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(30, 30, 30)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
+                        .addGap(30, 30, 30))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jRadioButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -184,20 +184,17 @@ public class JFrmSistemaAlquilerGuanaRent extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jSeparator3))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jRadioButton2)
-                            .addComponent(jRadioButton3))))
+                    .addComponent(jRadioButton1)
+                    .addComponent(jRadioButton2)
+                    .addComponent(jRadioButton3))
                 .addContainerGap(12, Short.MAX_VALUE))
+            .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         jMenu1.setText("File");
@@ -222,9 +219,16 @@ public class JFrmSistemaAlquilerGuanaRent extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
+    private void btnAlquileresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlquileresActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton4ActionPerformed
+    }//GEN-LAST:event_btnAlquileresActionPerformed
+
+    private void btnPropietariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPropietariosActionPerformed
+        // TODO add your handling code here:
+    JDlgNewPropiedad ventanaJuego = new JDlgNewPropiedad(this, true);
+    ventanaJuego.setVisible(true);
+    this.dispose();
+    }//GEN-LAST:event_btnPropietariosActionPerformed
        @Override
     public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().
@@ -268,6 +272,12 @@ public class JFrmSistemaAlquilerGuanaRent extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton btnAlquileres;
+    private javax.swing.JToggleButton btnGanancias;
+    private javax.swing.JToggleButton btnInquilinos;
+    private javax.swing.JToggleButton btnMensualidad;
+    private javax.swing.JToggleButton btnPropietarios;
+    private javax.swing.JToggleButton btnViviendas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
@@ -281,12 +291,6 @@ public class JFrmSistemaAlquilerGuanaRent extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JToggleButton jToggleButton2;
-    private javax.swing.JToggleButton jToggleButton3;
-    private javax.swing.JToggleButton jToggleButton4;
-    private javax.swing.JToggleButton jToggleButton5;
-    private javax.swing.JToggleButton jToggleButton6;
     private javax.swing.JLabel lblTituloUsuario;
     // End of variables declaration//GEN-END:variables
 }

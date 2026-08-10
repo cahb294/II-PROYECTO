@@ -43,6 +43,7 @@ public class JDlgnewAlquiler extends javax.swing.JDialog {
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jLabel8 = new javax.swing.JLabel();
         lblTituloUsuario2 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -56,7 +57,7 @@ public class JDlgnewAlquiler extends javax.swing.JDialog {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel1.setText("Cédula:");
+        jLabel1.setText("N° alquiler:");
 
         jLabel2.setText("Nombre Completo:");
 
@@ -81,7 +82,9 @@ public class JDlgnewAlquiler extends javax.swing.JDialog {
         lblTituloUsuario2.setFont(new java.awt.Font("NSimSun", 1, 24)); // NOI18N
         lblTituloUsuario2.setForeground(new java.awt.Color(0, 153, 153));
         lblTituloUsuario2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTituloUsuario2.setText("Informacion Propietario");
+        lblTituloUsuario2.setText("Información Alquiler ");
+
+        jLabel7.setText("Fecha CONTRATO");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -114,7 +117,9 @@ public class JDlgnewAlquiler extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel1)
                             .addGap(18, 18, 18)
-                            .addComponent(jTextField1))
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(42, 42, 42)
+                            .addComponent(jLabel7))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel6)
                             .addGap(18, 18, 18)
@@ -131,8 +136,9 @@ public class JDlgnewAlquiler extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGap(46, 46, 46)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -300,6 +306,7 @@ public class JDlgnewAlquiler extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
