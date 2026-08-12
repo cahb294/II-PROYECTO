@@ -5,23 +5,28 @@
 package logica;
 
 /**
- *
- * @author cahb294
  * Clase que representa al dueño de viviendas en alquiler
+ * @author cahb294
  **/
 public class Propietario {
-    
-    private String cedPropiet;   // Único
-    private String nomPropiet;
-    private String genero;       // Masculino / Femenino
-    private String direccion;
-    private String telefono;
-    private String email;
+//ATRIBUTOS
+    private String cedPropiet;     // N° cedula --sin repetir
+    private String nomPropiet;     // Nombre completo del propietario
+    private String genero;         // Genero: Masculino / Femenino
+    private String direccion;       // Direccion de residencia
+    private String telefono;        // Numero de contacto
+    private String email;           // Correo electronico
 
-
-    // Constructor
-    public Propietario(String cedPropiet, String nomPropiet, String genero, 
-                       String direccion, String telefono, String email) {
+    /**
+     * Constructor
+     * @param cedPropiet Cedula
+     * @param nomPropiet Nombre completo
+     * @param genero Genero de la persona
+     * @param direccion Dirección de residencia
+     * @param telefono Numero telefonico
+     * @param email Correo electronico
+     */
+    public Propietario(String cedPropiet, String nomPropiet, String genero, String direccion, String telefono, String email) {
         this.cedPropiet = cedPropiet;
         this.nomPropiet = nomPropiet;
         this.genero = genero;
@@ -30,25 +35,52 @@ public class Propietario {
         this.email = email;
     }
 
-    // Getters y Setters
-    public String getCedPropiet() { return cedPropiet; }
-    public void setCedPropiet(String cedPropiet) { this.cedPropiet = cedPropiet; }
+  
+    /** @return Cedula del propietario */
+    public String getCedPropiet() {
+        return cedPropiet; }
+    
+    /** @return Nombre completo */
+    public String getNomPropiet() {
+        return nomPropiet; }
+    
+    /** @return Genero */
+    public String getGenero() {
+        return genero; }
+    
+    /** @return Direccion de residencia */
+    public String getDireccion() {
+        return direccion; }
+    
+    /** @return Telefono */
+    public String getTelefono() { 
+        return telefono; }
+    
+    /** @return Correo electronico */
+    public String getEmail() { 
+        return email; }
 
-    public String getNomPropiet() { return nomPropiet; }
-    public void setNomPropiet(String nomPropiet) { this.nomPropiet = nomPropiet; }
-
-    public String getGenero() { return genero; }
-    public void setGenero(String genero) { this.genero = genero; }
-
-    public String getDireccion() { return direccion; }
-    public void setDireccion(String direccion) { this.direccion = direccion; }
-
-    public String getTelefono() { return telefono; }
-    public void setTelefono(String telefono) { this.telefono = telefono; }
-
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
-
-    @Override
-    public String toString() { return nomPropiet + " - Cédula: " + cedPropiet; }
+    /** @param cedPropiet Nueva cedula */
+    public void setCedPropiet(String cedPropiet) { 
+        this.cedPropiet = cedPropiet; }
+    
+    /** @param nomPropiet Nuevo nombre */
+    public void setNomPropiet(String nomPropiet) {
+        this.nomPropiet = nomPropiet; }
+    
+    /** @param genero Nuevo genero */
+    public void setGenero(String genero) { 
+        this.genero = genero; }
+    
+    /** @param direccion Nueva direccion */
+    public void setDireccion(String direccion) { 
+        this.direccion = direccion; }
+    
+    /** @param telefono Nuevo telefono */
+    public void setTelefono(String telefono) {
+        this.telefono = telefono; }
+    
+    /** @param email Nuevo correo */
+    public void setEmail(String email) {
+        this.email = email; }
 }

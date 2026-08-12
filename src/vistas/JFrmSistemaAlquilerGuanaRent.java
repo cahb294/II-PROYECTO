@@ -71,10 +71,20 @@ public class JFrmSistemaAlquilerGuanaRent extends javax.swing.JFrame {
         btnViviendas.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
         btnViviendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/vivienda8.png"))); // NOI18N
         btnViviendas.setText("Viviendas");
+        btnViviendas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViviendasActionPerformed(evt);
+            }
+        });
 
         btnInquilinos.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
         btnInquilinos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/inqulino8.png"))); // NOI18N
         btnInquilinos.setText("Inquilinos");
+        btnInquilinos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInquilinosActionPerformed(evt);
+            }
+        });
 
         btnAlquileres.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
         btnAlquileres.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/alquileres8.png"))); // NOI18N
@@ -88,10 +98,20 @@ public class JFrmSistemaAlquilerGuanaRent extends javax.swing.JFrame {
         btnMensualidad.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
         btnMensualidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/mensualidad8.png"))); // NOI18N
         btnMensualidad.setText("Mensualidad");
+        btnMensualidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMensualidadActionPerformed(evt);
+            }
+        });
 
         btnGanancias.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
         btnGanancias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Ganancias.png"))); // NOI18N
         btnGanancias.setText("Ganancias");
+        btnGanancias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGananciasActionPerformed(evt);
+            }
+        });
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LogoGuanaRent1.png"))); // NOI18N
@@ -197,10 +217,10 @@ public class JFrmSistemaAlquilerGuanaRent extends javax.swing.JFrame {
             .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
-        jMenu1.setText("File");
+        jMenu1.setText("Menu");
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("Acerca de");
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -225,10 +245,32 @@ public class JFrmSistemaAlquilerGuanaRent extends javax.swing.JFrame {
 
     private void btnPropietariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPropietariosActionPerformed
         // TODO add your handling code here:
-    JDlgNewPropiedad ventanaJuego = new JDlgNewPropiedad(this, true);
+    JDlgNewPropietario ventanaJuego = new JDlgNewPropietario(this, true);
     ventanaJuego.setVisible(true);
     this.dispose();
     }//GEN-LAST:event_btnPropietariosActionPerformed
+
+    private void btnViviendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViviendasActionPerformed
+        // TODO add your handling code here:
+        JDlgNewVivienda ventanaJuego = new JDlgNewVivienda(this, true);
+        ventanaJuego.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnViviendasActionPerformed
+
+    private void btnInquilinosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInquilinosActionPerformed
+        // TODO add your handling code here:
+        JDlgNewInquilino ventanaJuego = new JDlgNewInquilino(this, true);
+        ventanaJuego.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnInquilinosActionPerformed
+
+    private void btnMensualidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMensualidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnMensualidadActionPerformed
+
+    private void btnGananciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGananciasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGananciasActionPerformed
        @Override
     public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().

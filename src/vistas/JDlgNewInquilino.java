@@ -6,7 +6,7 @@ package vistas;
 
 /**
  *
- * @author cahb2
+ * @author cahb294
  */
 public class JDlgNewInquilino extends javax.swing.JDialog {
 
@@ -57,6 +57,7 @@ public class JDlgNewInquilino extends javax.swing.JDialog {
         btnCancelar = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("GuanaRent/Registro_Inquilinos/Información_Inquilino\n");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -87,10 +88,10 @@ public class JDlgNewInquilino extends javax.swing.JDialog {
 
         lblIconoInquilino.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/inqulino8.png"))); // NOI18N
 
-        lblTituloInquilino.setFont(new java.awt.Font("NSimSun", 1, 24)); // NOI18N
-        lblTituloInquilino.setForeground(new java.awt.Color(0, 153, 153));
         lblTituloInquilino.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTituloInquilino.setText("Información Inquilino");
+        lblTituloInquilino.setFont(new java.awt.Font("NSimSun", 1, 24)); // NOI18N
+        lblTituloInquilino.setForeground(new java.awt.Color(0, 153, 153));
 
         lblFechaNacInquilino.setText("Fecha Nacimiento: ");
 
@@ -108,14 +109,6 @@ public class JDlgNewInquilino extends javax.swing.JDialog {
                         .addGap(125, 125, 125)
                         .addComponent(lblTituloInquilino))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(lblDireccion)
-                            .addGap(18, 18, 18)
-                            .addComponent(jScrollPane1))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(lblCorreoElectronico)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtCorreoelectronicoInquilino))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(lblFechaNacInquilino)
@@ -139,7 +132,15 @@ public class JDlgNewInquilino extends javax.swing.JDialog {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtCedulaInquilino)
-                                .addComponent(txtNombInquilino)))))
+                                .addComponent(txtNombInquilino)))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblCorreoElectronico)
+                                .addComponent(lblDireccion))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane1)
+                                .addComponent(txtCorreoelectronicoInquilino)))))
                 .addContainerGap(68, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -176,8 +177,8 @@ public class JDlgNewInquilino extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblDireccion)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(61, 61, 61))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30))
         );
 
         pnlInquilino.setBackground(new java.awt.Color(0, 153, 153));
@@ -188,26 +189,26 @@ public class JDlgNewInquilino extends javax.swing.JDialog {
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LogoGuanaRent1.png"))); // NOI18N
         jLabel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        lblTituloUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloUsuario.setText("- Inquilinos - ");
         lblTituloUsuario.setBackground(new java.awt.Color(255, 255, 255));
         lblTituloUsuario.setFont(new java.awt.Font("NSimSun", 1, 24)); // NOI18N
         lblTituloUsuario.setForeground(new java.awt.Color(255, 255, 255));
-        lblTituloUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTituloUsuario.setText("- Inquilinos - ");
 
         javax.swing.GroupLayout pnlInquilinoLayout = new javax.swing.GroupLayout(pnlInquilino);
         pnlInquilino.setLayout(pnlInquilinoLayout);
         pnlInquilinoLayout.setHorizontalGroup(
             pnlInquilinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlInquilinoLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jLabel9)
-                .addContainerGap(14, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInquilinoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlInquilinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jSeparator1))
                 .addContainerGap())
+            .addGroup(pnlInquilinoLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabel9)
+                .addContainerGap(14, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInquilinoLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblTituloUsuario)
@@ -261,12 +262,12 @@ public class JDlgNewInquilino extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
             .addComponent(pnlInquilino, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
