@@ -4,11 +4,22 @@
  */
 package vistas;
 
+import datos.AlmacenamientoPropietarios;
+import javax.swing.JOptionPane;
+import logica.Propietario;
+
 /**
- *
+ * Formulario para REGISTRAR o MODIFICAR registro de propietarios
  * @author cahb294
+ * @author BrianOrozco
+ * @author MariaGall
  */
 public class JDlgNewPropietario extends javax.swing.JDialog {
+    
+
+    public AlmacenamientoPropietarios listaPropietarios;
+    protected Propietario propietarioEditar;
+    protected int pos;
 
     /**
      * Creates new form JDlgPropiedad
@@ -17,7 +28,26 @@ public class JDlgNewPropietario extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
-
+    
+  /**
+     * Constructor --- EDITAR PROPIETARIO EXISTENTE
+     * @param parent Ventana padre
+     * @param modal Indica si es modal
+     * @param listaPropietarios Almacenamiento compartido
+     */
+        public JDlgNewPropietario(java.awt.Frame parent, boolean modal,AlmacenamientoPropietarios listaPropietarios) {
+        super(parent, modal);
+        initComponents();
+        this.listaPropietarios = listaPropietarios;
+    }
+        
+    public JDlgNewPropietario(java.awt.Frame parent, boolean modal, AlmacenamientoPropietarios listaPropietarios, Propietario propietarioEditar, int pos) {
+        super(parent, modal);
+        initComponents();
+        this.listaPropietarios = listaPropietarios;
+        this.propietarioEditar = propietarioEditar;
+        this.pos = pos;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,7 +57,7 @@ public class JDlgNewPropietario extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlPropietario = new javax.swing.JPanel();
+        pnlInformacionPropietarios = new javax.swing.JPanel();
         lblCedula = new javax.swing.JLabel();
         lblNombreCompleto = new javax.swing.JLabel();
         lblGenero = new javax.swing.JLabel();
@@ -42,21 +72,20 @@ public class JDlgNewPropietario extends javax.swing.JDialog {
         cmbGenero = new javax.swing.JComboBox<>();
         txtTelefono = new javax.swing.JFormattedTextField();
         lbliconoPropietario = new javax.swing.JLabel();
-        lblTituloUsuario2 = new javax.swing.JLabel();
-        pnlLogo = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
+        lblTituloInformacionPropietarios = new javax.swing.JLabel();
+        pnlPropietarios = new javax.swing.JPanel();
+        lblLogo = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        lblTituloUsuario = new javax.swing.JLabel();
+        lblTituloPropietarios = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         btnGuardar = new javax.swing.JToggleButton();
         btnLimpiar = new javax.swing.JToggleButton();
         btnCancelar = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("GuanaRent/Propietarios");
         setBackground(new java.awt.Color(0, 102, 153));
 
-        pnlPropietario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pnlInformacionPropietarios.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         lblCedula.setText("Cédula:");
 
@@ -84,28 +113,28 @@ public class JDlgNewPropietario extends javax.swing.JDialog {
 
         lbliconoPropietario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Propietario8.png"))); // NOI18N
 
-        lblTituloUsuario2.setFont(new java.awt.Font("NSimSun", 1, 24)); // NOI18N
-        lblTituloUsuario2.setForeground(new java.awt.Color(0, 153, 153));
-        lblTituloUsuario2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTituloUsuario2.setText("Informacion Propietario");
+        lblTituloInformacionPropietarios.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloInformacionPropietarios.setText("Informacion Propietarios");
+        lblTituloInformacionPropietarios.setFont(new java.awt.Font("NSimSun", 1, 24)); // NOI18N
+        lblTituloInformacionPropietarios.setForeground(new java.awt.Color(0, 153, 153));
 
-        javax.swing.GroupLayout pnlPropietarioLayout = new javax.swing.GroupLayout(pnlPropietario);
-        pnlPropietario.setLayout(pnlPropietarioLayout);
-        pnlPropietarioLayout.setHorizontalGroup(
-            pnlPropietarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlPropietarioLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlInformacionPropietariosLayout = new javax.swing.GroupLayout(pnlInformacionPropietarios);
+        pnlInformacionPropietarios.setLayout(pnlInformacionPropietariosLayout);
+        pnlInformacionPropietariosLayout.setHorizontalGroup(
+            pnlInformacionPropietariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlInformacionPropietariosLayout.createSequentialGroup()
                 .addGap(68, 68, 68)
-                .addGroup(pnlPropietarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlPropietarioLayout.createSequentialGroup()
+                .addGroup(pnlInformacionPropietariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlInformacionPropietariosLayout.createSequentialGroup()
                         .addComponent(lbliconoPropietario)
                         .addGap(54, 54, 54)
-                        .addComponent(lblTituloUsuario2))
-                    .addGroup(pnlPropietarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(pnlPropietarioLayout.createSequentialGroup()
+                        .addComponent(lblTituloInformacionPropietarios))
+                    .addGroup(pnlInformacionPropietariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(pnlInformacionPropietariosLayout.createSequentialGroup()
                             .addComponent(lblDireccion)
                             .addGap(18, 18, 18)
                             .addComponent(jScrollPane1))
-                        .addGroup(pnlPropietarioLayout.createSequentialGroup()
+                        .addGroup(pnlInformacionPropietariosLayout.createSequentialGroup()
                             .addComponent(lblGenero)
                             .addGap(18, 18, 18)
                             .addComponent(cmbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -113,118 +142,133 @@ public class JDlgNewPropietario extends javax.swing.JDialog {
                             .addComponent(lblTelefono)
                             .addGap(18, 18, 18)
                             .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(pnlPropietarioLayout.createSequentialGroup()
+                        .addGroup(pnlInformacionPropietariosLayout.createSequentialGroup()
                             .addComponent(lblNombreCompleto)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(txtNombreCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(pnlPropietarioLayout.createSequentialGroup()
+                        .addGroup(pnlInformacionPropietariosLayout.createSequentialGroup()
                             .addComponent(lblCedula)
                             .addGap(18, 18, 18)
                             .addComponent(txtCedula))
-                        .addGroup(pnlPropietarioLayout.createSequentialGroup()
+                        .addGroup(pnlInformacionPropietariosLayout.createSequentialGroup()
                             .addComponent(lblcorreoElectronico)
                             .addGap(18, 18, 18)
                             .addComponent(txtCorreoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(68, Short.MAX_VALUE))
         );
-        pnlPropietarioLayout.setVerticalGroup(
-            pnlPropietarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPropietarioLayout.createSequentialGroup()
+        pnlInformacionPropietariosLayout.setVerticalGroup(
+            pnlInformacionPropietariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInformacionPropietariosLayout.createSequentialGroup()
                 .addContainerGap(38, Short.MAX_VALUE)
-                .addGroup(pnlPropietarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlInformacionPropietariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbliconoPropietario, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblTituloUsuario2, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(lblTituloInformacionPropietarios, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
-                .addGroup(pnlPropietarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlInformacionPropietariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCedula)
                     .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlPropietarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlInformacionPropietariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNombreCompleto)
                     .addComponent(txtNombreCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(pnlPropietarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlInformacionPropietariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblGenero)
                     .addComponent(lblTelefono)
                     .addComponent(cmbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(pnlPropietarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlInformacionPropietariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblcorreoElectronico)
                     .addComponent(txtCorreoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(pnlPropietarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlInformacionPropietariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblDireccion)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30))
         );
 
-        pnlLogo.setBackground(new java.awt.Color(0, 153, 153));
-        pnlLogo.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), javax.swing.BorderFactory.createEtchedBorder()));
-        pnlLogo.setForeground(new java.awt.Color(255, 255, 255));
+        pnlPropietarios.setBackground(new java.awt.Color(0, 153, 153));
+        pnlPropietarios.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), javax.swing.BorderFactory.createEtchedBorder()));
+        pnlPropietarios.setForeground(new java.awt.Color(255, 255, 255));
 
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LogoGuanaRent1.png"))); // NOI18N
-        jLabel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LogoGuanaRent1.png"))); // NOI18N
+        lblLogo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        lblTituloUsuario.setBackground(new java.awt.Color(255, 255, 255));
-        lblTituloUsuario.setFont(new java.awt.Font("NSimSun", 1, 24)); // NOI18N
-        lblTituloUsuario.setForeground(new java.awt.Color(255, 255, 255));
-        lblTituloUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTituloUsuario.setText("- Propietarios - ");
+        lblTituloPropietarios.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloPropietarios.setText("- Propietarios - ");
+        lblTituloPropietarios.setBackground(new java.awt.Color(255, 255, 255));
+        lblTituloPropietarios.setFont(new java.awt.Font("NSimSun", 1, 24)); // NOI18N
+        lblTituloPropietarios.setForeground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout pnlLogoLayout = new javax.swing.GroupLayout(pnlLogo);
-        pnlLogo.setLayout(pnlLogoLayout);
-        pnlLogoLayout.setHorizontalGroup(
-            pnlLogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlLogoLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlPropietariosLayout = new javax.swing.GroupLayout(pnlPropietarios);
+        pnlPropietarios.setLayout(pnlPropietariosLayout);
+        pnlPropietariosLayout.setHorizontalGroup(
+            pnlPropietariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlPropietariosLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jLabel9)
+                .addComponent(lblLogo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLogoLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPropietariosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlLogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLogoLayout.createSequentialGroup()
+                .addGroup(pnlPropietariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPropietariosLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblTituloUsuario)
+                        .addComponent(lblTituloPropietarios)
                         .addGap(19, 19, 19))
                     .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jSeparator1))
                 .addContainerGap())
         );
-        pnlLogoLayout.setVerticalGroup(
-            pnlLogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlLogoLayout.createSequentialGroup()
+        pnlPropietariosLayout.setVerticalGroup(
+            pnlPropietariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlPropietariosLayout.createSequentialGroup()
                 .addGap(67, 67, 67)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(lblTituloUsuario)
+                .addComponent(lblTituloPropietarios)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addComponent(jLabel9)
+                .addComponent(lblLogo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/save.png"))); // NOI18N
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/clean.png"))); // NOI18N
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/delete.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(pnlLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlPropietarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(pnlPropietario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(pnlInformacionPropietarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(108, 108, 108)
                         .addComponent(btnGuardar)
@@ -238,18 +282,165 @@ public class JDlgNewPropietario extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addComponent(pnlPropietario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlInformacionPropietarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(26, Short.MAX_VALUE))
-            .addComponent(pnlLogo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlPropietarios, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    /**
+     * Registra las propiedades de cada propietario sin duplica
+     * @param evt al presionar el boton guardar
+     */
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        if (txtCedula.getText().isBlank() ||
+            txtNombreCompleto.getText().isBlank() ||
+            cmbGenero.getSelectedIndex() == 0 ||
+            txtTelefono.getText().isBlank() ||
+            txtCorreoElectronico.getText().isBlank() ||
+            txtDireccion.getText().isBlank()) {
+
+            JOptionPane.showMessageDialog(this,"Hay campos vacíos, por favor complete todos los datos", "Faltan datos",JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            
+            String cedula = txtCedula.getText().trim();
+            String nombre = txtNombreCompleto.getText().trim();
+            String genero = cmbGenero.getSelectedItem().toString();
+            String direccion = txtDireccion.getText().trim();
+            String telefono = txtTelefono.getText().trim();
+            String correo = txtCorreoElectronico.getText().trim();
+
+            //VALIDAR CEDULA 
+            try {
+                Long.parseLong(cedula);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this,"La Cédula debe contener solo números","Cédula incorrecta",JOptionPane.ERROR_MESSAGE);
+                txtCedula.requestFocus();
+                txtCedula.selectAll();
+                return;
+            }
+            if (cedula.length() < 9) {
+                JOptionPane.showMessageDialog(this,"La Cédula debe tener al menos 9 dígitos\nTienes: " + cedula.length() + " dígito(s)", "Cédula muy corta",JOptionPane.ERROR_MESSAGE);
+                txtCedula.requestFocus();
+                txtCedula.selectAll();
+                return;
+            }
+
+            //VALIDAR TELEFONO 
+            String soloNumeros = telefono.replaceAll("[^0-9]", "");
+            if (soloNumeros.startsWith("506") && soloNumeros.length() > 3) {
+                soloNumeros = soloNumeros.substring(3);
+            }
+            try {
+                Long.parseLong(soloNumeros);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this,"El Teléfono debe contener solo números","Teléfono incorrecto",JOptionPane.ERROR_MESSAGE);
+                txtTelefono.requestFocus();
+                return;
+            }
+            if (soloNumeros.length() != 8) {
+                JOptionPane.showMessageDialog(this, "El Teléfono debe tener exactamente 8 dígitos\nTienes: " + soloNumeros.length() + " dígito(s)","Teléfono incompleto",JOptionPane.ERROR_MESSAGE);
+                txtTelefono.requestFocus();
+                return;
+            }
+
+            // VALIDAR FORMATO DE CORREO
+            if (!correo.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+                JOptionPane.showMessageDialog(this,"El Correo Electrónico no tiene un formato válido\nEjemplo: nombre@correo.com","Correo incorrecto",JOptionPane.ERROR_MESSAGE);
+                txtCorreoElectronico.requestFocus();
+                return;
+            }
+
+            //  NUEVO o EDITAR 
+            switch (this.getTitle()) {
+                case "Agregar un Nuevo Propietario" -> {
+                    // MODO NUEVO
+                    Propietario nuevo = new Propietario(cedula, nombre, genero, direccion, telefono, correo);
+
+                    if (listaPropietarios.existeCedula(cedula)) {
+                        JOptionPane.showMessageDialog(this, "Ya existe un Propietario con esta cédula","Cédula duplicada",
+                            JOptionPane.ERROR_MESSAGE);
+                        txtCedula.requestFocus();
+                        txtCedula.selectAll();
+                    } else {
+                        listaPropietarios.agregarPropietario(nuevo);
+                        listaPropietarios.guardarArchivo();
+                        JOptionPane.showMessageDialog(this, "Propietario guardado con éxito:\n" + nombre,"Guardado Exitoso",JOptionPane.INFORMATION_MESSAGE);
+                        this.dispose();
+                        btnLimpiarActionPerformed(evt); 
+                    }
+                }
+
+                case "Editar Propietario" -> {
+                    //MODO EDITAR
+                    // valida ced que no se repita en su modo edicion confdirma si existe o no
+                    String cedulaAnterior = propietarioEditar.getCedPropiet();
+                    if (!cedulaAnterior.equals(cedula) && listaPropietarios.existeCedula(cedula)) {
+                        JOptionPane.showMessageDialog(this,"La nueva cédula ya está registrada","Cédula duplicada",
+                            JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    // Actualizar todos los campos
+                    propietarioEditar.setCedPropiet(cedula);
+                    propietarioEditar.setNomPropiet(nombre);
+                    propietarioEditar.setGenero(genero);
+                    propietarioEditar.setDireccion(direccion);
+                    propietarioEditar.setTelefono(telefono);
+                    propietarioEditar.setEmail(correo);
+                    
+                    listaPropietarios.guardarArchivo();
+
+                    JOptionPane.showMessageDialog(this,
+                        "Datos del Propietario actualizados",
+                        "Edición Exitosa",
+                        JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose(); 
+                }
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                "Error al guardar: " + e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    /**
+     * Borra los campos del formulario
+     * @param evt al presionar el boton limpiar
+     */
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        // TODO add your handling code here:
+        txtCedula.setText("");
+        txtNombreCompleto.setText("");
+        txtDireccion.setText("");
+        txtTelefono.setText("");
+        txtCorreoElectronico.setText("");
+        cmbGenero.setSelectedIndex(0);
+        txtCedula.requestFocus();  
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    /**
+     * Cierra el formulario
+     * @param evt al presionar el boton cancelar
+     */
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -301,21 +492,21 @@ public class JDlgNewPropietario extends javax.swing.JDialog {
     private javax.swing.JToggleButton btnGuardar;
     private javax.swing.JToggleButton btnLimpiar;
     private javax.swing.JComboBox<String> cmbGenero;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lblCedula;
     private javax.swing.JLabel lblDireccion;
     private javax.swing.JLabel lblGenero;
+    private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblNombreCompleto;
     private javax.swing.JLabel lblTelefono;
-    private javax.swing.JLabel lblTituloUsuario;
-    private javax.swing.JLabel lblTituloUsuario2;
+    private javax.swing.JLabel lblTituloInformacionPropietarios;
+    private javax.swing.JLabel lblTituloPropietarios;
     private javax.swing.JLabel lblcorreoElectronico;
     private javax.swing.JLabel lbliconoPropietario;
-    private javax.swing.JPanel pnlLogo;
-    private javax.swing.JPanel pnlPropietario;
+    private javax.swing.JPanel pnlInformacionPropietarios;
+    private javax.swing.JPanel pnlPropietarios;
     private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtCorreoElectronico;
     private javax.swing.JTextArea txtDireccion;

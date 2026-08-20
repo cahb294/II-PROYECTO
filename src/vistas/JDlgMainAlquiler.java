@@ -4,11 +4,47 @@
  */
 package vistas;
 
+import datos.AlmacenamientoViviendas;
+import datos.AlmacenamientoInquilinos;
+import datos.AlmacenamientoAlquileres;
+import logica.Alquiler;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
+import java.time.format.DateTimeFormatter;
+
 /**
+ * Ventana principal de Gestion de Contratos de Alquiler
  *
- * @author cahb2
+ * @author cahb294
+ * @author BrianOrozco
+ * @author MariaGallo
  */
 public class JDlgMainAlquiler extends javax.swing.JDialog {
+
+    /**
+     * Referencia al almacenamiento de Viviendas
+     */
+    public AlmacenamientoViviendas listaViviendas;
+    
+    /**
+     * Referencia al almacenamiento de Inquilinos
+     */
+    public AlmacenamientoInquilinos listaInquilinos;
+    
+    /**
+     * Referencia al almacenamiento de Contratos de Alquiler
+     */
+    public AlmacenamientoAlquileres listaAlquileres;
+
+    /**
+     * Modelo de tabla para mostrar los datos
+     */
+    private DefaultTableModel tblModel;
+    
+    /**
+     * Formato de fecha: Dia/Mes/Año → dd/MM/yyyy 
+     */
+    private final DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     /**
      * Creates new form JDlgAlquiler
@@ -16,6 +52,28 @@ public class JDlgMainAlquiler extends javax.swing.JDialog {
     public JDlgMainAlquiler(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+
+    /**
+     * Constructor de la Ventana Principal
+     * @param parent Ventana padre
+     * @param modal Si la ventana bloquea a la anterior al abrirse
+     * @param listaViviendas Objeto con la lista de viviendas registradas
+     * @param listaInquilinos Objeto con la lista de inquilinos registrados
+     * @param listaAlquileres Objeto con la lista de contratos de alquiler
+     */
+    public JDlgMainAlquiler(java.awt.Frame parent, boolean modal,
+            AlmacenamientoViviendas listaViviendas,
+            AlmacenamientoInquilinos listaInquilinos,
+            AlmacenamientoAlquileres listaAlquileres) {
+
+        super(parent, modal);
+        initComponents();
+
+        this.listaViviendas = listaViviendas;
+        this.listaInquilinos = listaInquilinos;
+        this.listaAlquileres = listaAlquileres;
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -27,140 +85,172 @@ public class JDlgMainAlquiler extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlInquilino = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
+        pnlAlquileres = new javax.swing.JPanel();
+        lblLogo = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        lblTituloUsuario = new javax.swing.JLabel();
+        lblTituloAlquileres = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        lblIconoInquilino = new javax.swing.JLabel();
-        lblTituloUsuario3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        lblTituloUsuario2 = new javax.swing.JLabel();
+        lblIlustrativo = new javax.swing.JLabel();
+        lblTituloRegistroAlquileres = new javax.swing.JLabel();
+        txtBarraBuscar = new javax.swing.JTextField();
+        PnlOpcionesUsuario = new javax.swing.JPanel();
+        BttnNuevo = new javax.swing.JButton();
+        BttnEditar = new javax.swing.JButton();
+        BttnEliminar = new javax.swing.JButton();
+        BttnRegresar = new javax.swing.JButton();
+        lblBuscar = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        lblTituloUsuario1 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        TblAlquileres = new javax.swing.JTable();
+        lblTotalRegistro = new javax.swing.JLabel();
+        txtCantReg = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Gestion de Alquileres");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
-        pnlInquilino.setBackground(new java.awt.Color(0, 153, 153));
-        pnlInquilino.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), javax.swing.BorderFactory.createEtchedBorder()));
-        pnlInquilino.setForeground(new java.awt.Color(255, 255, 255));
+        pnlAlquileres.setBackground(new java.awt.Color(0, 153, 153));
+        pnlAlquileres.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), javax.swing.BorderFactory.createEtchedBorder()));
+        pnlAlquileres.setForeground(new java.awt.Color(255, 255, 255));
 
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LogoGuanaRent1.png"))); // NOI18N
-        jLabel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LogoGuanaRent1.png"))); // NOI18N
+        lblLogo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        lblTituloUsuario.setBackground(new java.awt.Color(255, 255, 255));
-        lblTituloUsuario.setFont(new java.awt.Font("NSimSun", 1, 24)); // NOI18N
-        lblTituloUsuario.setForeground(new java.awt.Color(255, 255, 255));
-        lblTituloUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTituloUsuario.setText("- Alquileres - ");
+        lblTituloAlquileres.setBackground(new java.awt.Color(255, 255, 255));
+        lblTituloAlquileres.setFont(new java.awt.Font("NSimSun", 1, 24)); // NOI18N
+        lblTituloAlquileres.setForeground(new java.awt.Color(255, 255, 255));
+        lblTituloAlquileres.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloAlquileres.setText("- Alquileres - ");
 
-        lblIconoInquilino.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/alquileres8.png"))); // NOI18N
+        lblIlustrativo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/alquileres8.png"))); // NOI18N
 
-        javax.swing.GroupLayout pnlInquilinoLayout = new javax.swing.GroupLayout(pnlInquilino);
-        pnlInquilino.setLayout(pnlInquilinoLayout);
-        pnlInquilinoLayout.setHorizontalGroup(
-            pnlInquilinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInquilinoLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlAlquileresLayout = new javax.swing.GroupLayout(pnlAlquileres);
+        pnlAlquileres.setLayout(pnlAlquileresLayout);
+        pnlAlquileresLayout.setHorizontalGroup(
+            pnlAlquileresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAlquileresLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblTituloUsuario)
+                .addComponent(lblTituloAlquileres)
                 .addGap(34, 34, 34))
-            .addGroup(pnlInquilinoLayout.createSequentialGroup()
-                .addGroup(pnlInquilinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInquilinoLayout.createSequentialGroup()
+            .addGroup(pnlAlquileresLayout.createSequentialGroup()
+                .addGroup(pnlAlquileresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAlquileresLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(pnlInquilinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlAlquileresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jSeparator1)))
-                    .addGroup(pnlInquilinoLayout.createSequentialGroup()
-                        .addGroup(pnlInquilinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlInquilinoLayout.createSequentialGroup()
+                    .addGroup(pnlAlquileresLayout.createSequentialGroup()
+                        .addGroup(pnlAlquileresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlAlquileresLayout.createSequentialGroup()
                                 .addGap(14, 14, 14)
-                                .addComponent(jLabel9))
-                            .addGroup(pnlInquilinoLayout.createSequentialGroup()
+                                .addComponent(lblLogo))
+                            .addGroup(pnlAlquileresLayout.createSequentialGroup()
                                 .addGap(101, 101, 101)
-                                .addComponent(lblIconoInquilino)))
+                                .addComponent(lblIlustrativo)))
                         .addGap(0, 8, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        pnlInquilinoLayout.setVerticalGroup(
-            pnlInquilinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlInquilinoLayout.createSequentialGroup()
+        pnlAlquileresLayout.setVerticalGroup(
+            pnlAlquileresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlAlquileresLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(lblIconoInquilino)
+                .addComponent(lblIlustrativo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(lblTituloUsuario)
+                .addComponent(lblTituloAlquileres)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addComponent(jLabel9)
+                .addComponent(lblLogo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        lblTituloUsuario3.setBackground(new java.awt.Color(153, 153, 0));
-        lblTituloUsuario3.setFont(new java.awt.Font("Perpetua Titling MT", 1, 24)); // NOI18N
-        lblTituloUsuario3.setForeground(new java.awt.Color(153, 153, 0));
-        lblTituloUsuario3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTituloUsuario3.setText("  Registro de Alquileres ");
+        lblTituloRegistroAlquileres.setBackground(new java.awt.Color(153, 153, 0));
+        lblTituloRegistroAlquileres.setFont(new java.awt.Font("Perpetua Titling MT", 1, 24)); // NOI18N
+        lblTituloRegistroAlquileres.setForeground(new java.awt.Color(153, 153, 0));
+        lblTituloRegistroAlquileres.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloRegistroAlquileres.setText("  Registro de Alquileres ");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        txtBarraBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBarraBuscarActionPerformed(evt);
+            }
+        });
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/new.png"))); // NOI18N
-        jButton6.setText("Nuevo");
+        PnlOpcionesUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/edit.png"))); // NOI18N
-        jButton7.setText("Editar");
-        jButton7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        BttnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/new.png"))); // NOI18N
+        BttnNuevo.setText("Nuevo");
+        BttnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BttnNuevoActionPerformed(evt);
+            }
+        });
 
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/eliminar.png"))); // NOI18N
-        jButton8.setText("Eliminar");
+        BttnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/edit.png"))); // NOI18N
+        BttnEditar.setText("Editar");
+        BttnEditar.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        BttnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BttnEditarActionPerformed(evt);
+            }
+        });
 
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/back.png"))); // NOI18N
-        jButton9.setText("Regresar");
+        BttnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/eliminar.png"))); // NOI18N
+        BttnEliminar.setText("Eliminar");
+        BttnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BttnEliminarActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        BttnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/back.png"))); // NOI18N
+        BttnRegresar.setText("Regresar");
+        BttnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BttnRegresarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PnlOpcionesUsuarioLayout = new javax.swing.GroupLayout(PnlOpcionesUsuario);
+        PnlOpcionesUsuario.setLayout(PnlOpcionesUsuarioLayout);
+        PnlOpcionesUsuarioLayout.setHorizontalGroup(
+            PnlOpcionesUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PnlOpcionesUsuarioLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(jButton6)
+                .addComponent(BttnNuevo)
                 .addGap(18, 18, 18)
-                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(BttnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(BttnEditar)
                 .addGap(18, 18, 18)
-                .addComponent(jButton7)
-                .addGap(18, 18, 18)
-                .addComponent(jButton9)
+                .addComponent(BttnRegresar)
                 .addContainerGap(15, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        PnlOpcionesUsuarioLayout.setVerticalGroup(
+            PnlOpcionesUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PnlOpcionesUsuarioLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton7)
-                    .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton9))
+                .addGroup(PnlOpcionesUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BttnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BttnEditar)
+                    .addComponent(BttnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BttnRegresar))
                 .addGap(15, 15, 15))
         );
 
-        lblTituloUsuario2.setBackground(new java.awt.Color(153, 153, 0));
-        lblTituloUsuario2.setFont(new java.awt.Font("NSimSun", 0, 18)); // NOI18N
-        lblTituloUsuario2.setForeground(new java.awt.Color(0, 102, 102));
-        lblTituloUsuario2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTituloUsuario2.setText("Buscar:");
+        lblBuscar.setBackground(new java.awt.Color(153, 153, 0));
+        lblBuscar.setFont(new java.awt.Font("NSimSun", 0, 18)); // NOI18N
+        lblBuscar.setForeground(new java.awt.Color(0, 102, 102));
+        lblBuscar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBuscar.setText("Buscar:");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TblAlquileres.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -168,71 +258,180 @@ public class JDlgMainAlquiler extends javax.swing.JDialog {
 
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(TblAlquileres);
 
-        lblTituloUsuario1.setBackground(new java.awt.Color(153, 153, 0));
-        lblTituloUsuario1.setFont(new java.awt.Font("NSimSun", 0, 18)); // NOI18N
-        lblTituloUsuario1.setForeground(new java.awt.Color(0, 102, 102));
-        lblTituloUsuario1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTituloUsuario1.setText("Total Registrados:");
+        lblTotalRegistro.setBackground(new java.awt.Color(153, 153, 0));
+        lblTotalRegistro.setFont(new java.awt.Font("NSimSun", 0, 18)); // NOI18N
+        lblTotalRegistro.setForeground(new java.awt.Color(0, 102, 102));
+        lblTotalRegistro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTotalRegistro.setText("Total Registrados:");
 
-        jTextField2.setEditable(false);
+        txtCantReg.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(pnlInquilino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlAlquileres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 887, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 19, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(166, 166, 166)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(PnlOpcionesUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(44, 44, 44)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(110, 110, 110)
-                                .addComponent(lblTituloUsuario2)
+                                .addGap(66, 66, 66)
+                                .addComponent(lblBuscar)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtBarraBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblTituloUsuario3)
+                                .addComponent(lblTituloRegistroAlquileres)
                                 .addGap(97, 97, 97)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblTituloUsuario1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 619, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 18, Short.MAX_VALUE))))
+                        .addComponent(lblTotalRegistro)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCantReg, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlInquilino, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlAlquileres, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
-                .addComponent(lblTituloUsuario3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addComponent(lblTituloRegistroAlquileres, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblTituloUsuario2))
+                    .addComponent(txtBarraBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblBuscar))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(PnlOpcionesUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblTituloUsuario1))
-                .addGap(22, 22, 22))
+                    .addComponent(txtCantReg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTotalRegistro))
+                .addGap(28, 28, 28))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtBarraBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBarraBuscarActionPerformed
+        // TODO add your handling code here:
+        String texto = txtBarraBuscar.getText().trim().toLowerCase();
+
+        if (texto.isEmpty()) {
+            muestraTabla(); 
+            return;
+        }
+    }//GEN-LAST:event_txtBarraBuscarActionPerformed
+
+    /**
+     * Boton NUEVO se Abre formulario para registrar contrato nuevo
+     * @param evt Evento de clic del boton
+     */
+    private void BttnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BttnNuevoActionPerformed
+        // TODO add your handling code here:
+        JDlgNewAlquiler formulario = new JDlgNewAlquiler(null, true, listaViviendas, listaInquilinos, listaAlquileres);
+        formulario.setVisible(true);
+        muestraTabla();
+
+    }//GEN-LAST:event_BttnNuevoActionPerformed
+
+    /**
+     * Boton ELIMINAR, Borra contrato seleccionado.
+     * @param evt Evento de clic del boton
+     */
+    private void BttnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BttnEliminarActionPerformed
+        // TODO add your handling code here:
+        if (TblAlquileres.getSelectedRowCount() != 1) {
+            JOptionPane.showMessageDialog(this,"Seleccione 1 SOLO contrato para eliminar","Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        int fila = TblAlquileres.getSelectedRow();
+        Alquiler alq = listaAlquileres.getListaAlquileres().get(fila);
+
+        int resp = JOptionPane.showConfirmDialog(this,"¿Eliminar Contrato Nº " + alq.getNumAlquiler() + "?\n"
+                + "Vivienda: " + alq.getIdVivienda() + "\n"
+                + "Al eliminar, la vivienda quedara DISPONIBLE.",
+                "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+
+        if (resp == JOptionPane.YES_OPTION) {
+            if (listaAlquileres.eliminarAlquiler(alq.getIdVivienda())) {
+                JOptionPane.showMessageDialog(this,
+                        "Contrato eliminado.\nVivienda ahora está DISPONIBLE.",
+                        "Operación Exitosa", JOptionPane.INFORMATION_MESSAGE);
+                muestraTabla();
+            }
+        }
+    }//GEN-LAST:event_BttnEliminarActionPerformed
+
+    /**
+     * Boton EDITAR, Abre formulario con datos del contrato seleccionado
+     * Validación: Debe seleccionarse UNA sola fila de la tabla
+     * @param evt Evento de clic del botón
+     */
+    private void BttnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BttnEditarActionPerformed
+        // TODO add your handling code here:
+        if (TblAlquileres.getSelectedRowCount() != 1) {
+            JOptionPane.showMessageDialog(this,"Seleccione 1 SOLO contrato en la tabla","Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        int fila = TblAlquileres.getSelectedRow();
+        Alquiler alq = listaAlquileres.getListaAlquileres().get(fila);
+        JDlgNewAlquiler win = new JDlgNewAlquiler(null, true, listaViviendas, listaInquilinos, listaAlquileres, alq, fila);
+        win.setTitle("Editar Contrato Nº " + alq.getNumAlquiler());
+        win.setVisible(true);
+        muestraTabla();
+    }//GEN-LAST:event_BttnEditarActionPerformed
+
+    /**
+     * Boton REGRESAR, Cierra esta ventana y vuelve al menú principal.
+     * @param evt Evento de clic del boton
+     */
+    private void BttnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BttnRegresarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_BttnRegresarActionPerformed
+
+    /**
+     * Evento que se ejecuta al abrir o activar la ventana.
+     * @param evt Evento de activacion de ventana
+     */
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        muestraTabla();
+    }//GEN-LAST:event_formWindowActivated
+
+    /**
+     * Construye la tabla y llena filas con todos los contratos registrados
+     */
+    private void muestraTabla() {
+        String[] titulos = {"Nº Contrato", "Vivienda", "Fecha Contrato", "Meses", "Inquilino", "Precio Mensual", "Estado"};
+        tblModel = new DefaultTableModel(null, titulos);
+
+        for (Alquiler alq : listaAlquileres.getListaAlquileres()) {
+            Object[] fila = {
+                alq.getNumAlquiler(),
+                alq.getIdVivienda(),
+                alq.getFechContrato().format(formato),
+                alq.getCantMeses(),
+                alq.getCedInquilino(),
+                "₡" + String.format("%,.2f", alq.getPrecioAlquiler()),
+                alq.getEstado()
+            };
+            tblModel.addRow(fila);
+        }
+        TblAlquileres.setModel(tblModel);
+        txtCantReg.setText(String.valueOf(tblModel.getRowCount()));
+    }
 
     /**
      * @param args the command line arguments
@@ -278,23 +477,23 @@ public class JDlgMainAlquiler extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton BttnEditar;
+    private javax.swing.JButton BttnEliminar;
+    private javax.swing.JButton BttnNuevo;
+    private javax.swing.JButton BttnRegresar;
+    private javax.swing.JPanel PnlOpcionesUsuario;
+    private javax.swing.JTable TblAlquileres;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JLabel lblIconoInquilino;
-    private javax.swing.JLabel lblTituloUsuario;
-    private javax.swing.JLabel lblTituloUsuario1;
-    private javax.swing.JLabel lblTituloUsuario2;
-    private javax.swing.JLabel lblTituloUsuario3;
-    private javax.swing.JPanel pnlInquilino;
+    private javax.swing.JLabel lblBuscar;
+    private javax.swing.JLabel lblIlustrativo;
+    private javax.swing.JLabel lblLogo;
+    private javax.swing.JLabel lblTituloAlquileres;
+    private javax.swing.JLabel lblTituloRegistroAlquileres;
+    private javax.swing.JLabel lblTotalRegistro;
+    private javax.swing.JPanel pnlAlquileres;
+    private javax.swing.JTextField txtBarraBuscar;
+    private javax.swing.JTextField txtCantReg;
     // End of variables declaration//GEN-END:variables
 }

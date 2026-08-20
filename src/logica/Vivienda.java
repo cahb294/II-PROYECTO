@@ -7,11 +7,13 @@ package logica;
 /*
  * Clase que representa la casa disponible para alquiler.
  * @author cahb294
+ * @author BrianOrozco
+ * @author MariaGallo
  */
 public class Vivienda {
 //  ATRIBUTOS
     private String idVivienda;          // ID Unico
-    private String descripcion;          // descripción de la propiedad
+    private String descripcion;          // descripcion de la propiedad
     private String direccion;            // Direccion de ubicación
     private double mtsConstruct;         // Metros cuadrados de construccion
     private double mtsLote;              // Metros cuadrados del lote
@@ -19,7 +21,7 @@ public class Vivienda {
     private boolean cochera;             // true = tiene cochera, false = no tiene
     private int cantHabitac;             // Cantidad de habitaciones 
     private double cantBanios;           // Cantidad de baños 
-    private String carretera;            // Vía de acceso: lastre, pavimentada, adoquinada
+    private String carretera;            // Via de acceso: lastre, pavimentada, adoquinada
     private double precioBase;           // Precio base mensual de alquiler
     private double depositoGarantia;     // Monto de garantia 
     private Propietario propietario;    // Objeto Propietario: dueño de la propiedad

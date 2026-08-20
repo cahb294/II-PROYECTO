@@ -9,30 +9,32 @@ import java.time.LocalDate;
 /**
  * Clase que representa un recibo mensual de pago.
  * @author cahb294
+ * @author BrianOrozco
+ * @author MariaGallo
  */
 public class Mensualidad {
-   // ==== ATRIBUTOS ====
-    private int consecutivo;         // Número único del recibo
-    private int numAlquiler;         // Número del contrato de alquiler asociado
-    private LocalDate fechCreacion;  // Fecha en que se generó el recibo
+ 
+    private int consecutivo;         // Numero unico del recibo
+    private int numAlquiler;         // Numero del contrato de alquiler asociado
+    private LocalDate fechCreacion;  // Fecha en que se genera el recibo
     private String nomInquilino;      // Nombre del inquilino para mostrar en el recibo
-    private int mesCobro;             // Mes de cobro: 1=Enero, 2=Febrero ... 12=Diciembre
-    private int anioActual;           // Año del cobro (4 dígitos ej: 2026)
-    private double descuento;         // Porcentaje de descuento según temporada
-    private double montoMes;          // Monto final a pagar con descuento incluido
-    private String estado;            // Estado del recibo: Pendiente, Cancelado
+    private int mesCobro;             // Mes de cobro
+    private int anioActual;           // Año de cobro
+    private double descuento;         // Porcentaje de descuento dada por la temporada
+    private double montoMes;          // Monto final a pagar
+    private String estado;            // Estado del recibo
 
     /**
-     * Constructor: crea un objeto Mensualidad con los datos del recibo
-     * @param consecutivo Número único del recibo
-     * @param numAlquiler Número del contrato asociado
-     * @param fechCreacion Fecha de generación del recibo
+     * Constructor
+     * @param consecutivo Nmero unico del recibo
+     * @param numAlquiler Nmero del contrato asociado
+     * @param fechCreacion Fecha que se genero el recibo
      * @param nomInquilino Nombre del inquilino
      * @param mesCobro Mes correspondiente al cobro
      * @param anioActual Año correspondiente
      * @param descuento Porcentaje de descuento aplicado
      * @param montoMes Monto final a pagar
-     * @param estado Situación del recibo
+     * @param estado Situacion del recibo
      */
     public Mensualidad(int consecutivo, int numAlquiler, LocalDate fechCreacion, String nomInquilino,
                        int mesCobro, int anioActual, double descuento, double montoMes, String estado) {
@@ -47,16 +49,15 @@ public class Mensualidad {
         this.estado = estado;
     }
 
-    // ==== GETTERS: Leer valor de cada atributo ====
-    /** @return Número único consecutivo del recibo */
+    /** @return Numero unico consecutivo del recibo */
     public int getConsecutivo() {
         return consecutivo; }
 
-    /** @return Número del contrato de alquiler asociado */
+    /** @return Numero del contrato de alquiler asociado */
     public int getNumAlquiler() { 
         return numAlquiler; }
 
-    /** @return Fecha en que se generó el recibo */
+    /** @return Fecha en que se genero el recibo */
     public LocalDate getFechCreacion() {
         return fechCreacion; }
 
@@ -64,7 +65,7 @@ public class Mensualidad {
     public String getNomInquilino() {
         return nomInquilino; }
 
-    /** @return Mes del cobro (1-12) */
+    /** @return Mes del cobro */
     public int getMesCobro() { 
         return mesCobro; }
 
@@ -84,15 +85,15 @@ public class Mensualidad {
     public String getEstado() {
         return estado; }
     
-    /** @param consecutivo Nuevo número único */
+    /** @param consecutivo Nuevo numero unico */
     public void setConsecutivo(int consecutivo) { 
         this.consecutivo = consecutivo; }
 
-    /** @param numAlquiler Nuevo número de contrato asociado */
+    /** @param numAlquiler Nuevo numero de contrato asociado */
     public void setNumAlquiler(int numAlquiler) {
         this.numAlquiler = numAlquiler; }
 
-    /** @param fechCreacion Nueva fecha de generación */
+    /** @param fechCreacion Nueva fecha de generacion */
     public void setFechCreacion(LocalDate fechCreacion) { 
         this.fechCreacion = fechCreacion; }
 
@@ -116,7 +117,17 @@ public class Mensualidad {
     public void setMontoMes(double montoMes) {
         this.montoMes = montoMes; }
 
-    /** @param estado Nuevo estado del recibo */
+    /**
+     * @param estado Nuevo estado del recibo
+     */
     public void setEstado(String estado) {
-        this.estado = estado; }  
+        this.estado = estado;
+    }
+
+    /**
+     * Nuevo estado a Cancelado
+     */
+    public void marcarComoCancelado() {
+        this.estado = "Cancelado";
+    }
 }

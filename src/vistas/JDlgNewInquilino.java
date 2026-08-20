@@ -4,11 +4,22 @@
  */
 package vistas;
 
+import datos.AlmacenamientoInquilinos;
+import javax.swing.JOptionPane;
+import logica.Inquilino;
+
 /**
- *
+ * Formulario para AGREGAR o EDITAR un inquilino.
  * @author cahb294
+ * @author BrianOrozco
+ * @author MariaGallo
  */
 public class JDlgNewInquilino extends javax.swing.JDialog {
+
+    public AlmacenamientoInquilinos listaInquilinos;
+    // Si es edición → estos vienen llenos
+    protected Inquilino inquilinoEditar;
+    protected int pos;
 
     /**
      * Creates new form JDlgInquilino
@@ -16,6 +27,37 @@ public class JDlgNewInquilino extends javax.swing.JDialog {
     public JDlgNewInquilino(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+
+    }
+
+    /**
+     * Constructor AGREGAR NUEVO INQUILINO Recibe el almacenamiento donde se
+     * guardará el registro.
+     *
+     * @param parent Ventana padre
+     * @param modal Indica si es modal
+     * @param listaInquilinos Almacenamiento compartido
+     */
+    public JDlgNewInquilino(java.awt.Frame parent, boolean modal, AlmacenamientoInquilinos listaInquilinos) {
+        super(parent, modal);
+        initComponents();
+        this.listaInquilinos = listaInquilinos;
+    }
+
+    /**
+     * Constructor -- EDITAR 
+     * @param parent Ventana padre
+     * @param modal Indica si es modal
+     * @param listaInquilinos Almacenamiento compartido
+     * @param inquilinoEditar Objeto con los datos a modificar
+     * @param pos Índice de la fila en la tabla
+     */
+    public JDlgNewInquilino(java.awt.Frame parent, boolean modal, AlmacenamientoInquilinos listaInquilinos, Inquilino inquilinoEditar, int pos) {
+        super(parent, modal);
+        initComponents();
+        this.listaInquilinos = listaInquilinos;
+        this.inquilinoEditar = inquilinoEditar;
+        this.pos = pos;
     }
 
     /**
@@ -37,20 +79,20 @@ public class JDlgNewInquilino extends javax.swing.JDialog {
         txtCedulaInquilino = new javax.swing.JTextField();
         txtNombInquilino = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtADireccion = new javax.swing.JTextArea();
         txtCorreoelectronicoInquilino = new javax.swing.JTextField();
         cmbGeneroInquilino = new javax.swing.JComboBox<>();
         txtTelefonoInquilino = new javax.swing.JFormattedTextField();
         lblIconoInquilino = new javax.swing.JLabel();
-        lblTituloInquilino = new javax.swing.JLabel();
+        lblInformacionInquilinos = new javax.swing.JLabel();
         lblFechaNacInquilino = new javax.swing.JLabel();
         lblOcupacion = new javax.swing.JLabel();
         txtOcupacionInquilino = new javax.swing.JTextField();
         dtFechaNac = new com.github.lgooddatepicker.components.DatePicker();
-        pnlInquilino = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
+        pnlInquilinos = new javax.swing.JPanel();
+        lblLogo = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        lblTituloUsuario = new javax.swing.JLabel();
+        lblTituloInquilinos = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         btnGuardar = new javax.swing.JToggleButton();
         btnLimpiar = new javax.swing.JToggleButton();
@@ -58,6 +100,11 @@ public class JDlgNewInquilino extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("GuanaRent/Registro_Inquilinos/Información_Inquilino\n");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -73,9 +120,9 @@ public class JDlgNewInquilino extends javax.swing.JDialog {
 
         lblCorreoElectronico.setText("Correo Electronico:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtADireccion.setColumns(20);
+        txtADireccion.setRows(5);
+        jScrollPane1.setViewportView(txtADireccion);
 
         cmbGeneroInquilino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elige una opcion", "Hombre", "Mujer" }));
 
@@ -88,10 +135,10 @@ public class JDlgNewInquilino extends javax.swing.JDialog {
 
         lblIconoInquilino.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/inqulino8.png"))); // NOI18N
 
-        lblTituloInquilino.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTituloInquilino.setText("Información Inquilino");
-        lblTituloInquilino.setFont(new java.awt.Font("NSimSun", 1, 24)); // NOI18N
-        lblTituloInquilino.setForeground(new java.awt.Color(0, 153, 153));
+        lblInformacionInquilinos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblInformacionInquilinos.setText("Información Inquilinos");
+        lblInformacionInquilinos.setFont(new java.awt.Font("NSimSun", 1, 24)); // NOI18N
+        lblInformacionInquilinos.setForeground(new java.awt.Color(0, 153, 153));
 
         lblFechaNacInquilino.setText("Fecha Nacimiento: ");
 
@@ -107,7 +154,7 @@ public class JDlgNewInquilino extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblIconoInquilino)
                         .addGap(125, 125, 125)
-                        .addComponent(lblTituloInquilino))
+                        .addComponent(lblInformacionInquilinos))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,7 +196,7 @@ public class JDlgNewInquilino extends javax.swing.JDialog {
                 .addContainerGap(38, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblIconoInquilino, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblTituloInquilino, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(lblInformacionInquilinos, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCedula)
@@ -181,81 +228,95 @@ public class JDlgNewInquilino extends javax.swing.JDialog {
                 .addGap(30, 30, 30))
         );
 
-        pnlInquilino.setBackground(new java.awt.Color(0, 153, 153));
-        pnlInquilino.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), javax.swing.BorderFactory.createEtchedBorder()));
-        pnlInquilino.setForeground(new java.awt.Color(255, 255, 255));
+        pnlInquilinos.setBackground(new java.awt.Color(0, 153, 153));
+        pnlInquilinos.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), javax.swing.BorderFactory.createEtchedBorder()));
+        pnlInquilinos.setForeground(new java.awt.Color(255, 255, 255));
 
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LogoGuanaRent1.png"))); // NOI18N
-        jLabel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LogoGuanaRent1.png"))); // NOI18N
+        lblLogo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        lblTituloUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTituloUsuario.setText("- Inquilinos - ");
-        lblTituloUsuario.setBackground(new java.awt.Color(255, 255, 255));
-        lblTituloUsuario.setFont(new java.awt.Font("NSimSun", 1, 24)); // NOI18N
-        lblTituloUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        lblTituloInquilinos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloInquilinos.setText("- Inquilinos - ");
+        lblTituloInquilinos.setBackground(new java.awt.Color(255, 255, 255));
+        lblTituloInquilinos.setFont(new java.awt.Font("NSimSun", 1, 24)); // NOI18N
+        lblTituloInquilinos.setForeground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout pnlInquilinoLayout = new javax.swing.GroupLayout(pnlInquilino);
-        pnlInquilino.setLayout(pnlInquilinoLayout);
-        pnlInquilinoLayout.setHorizontalGroup(
-            pnlInquilinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInquilinoLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlInquilinosLayout = new javax.swing.GroupLayout(pnlInquilinos);
+        pnlInquilinos.setLayout(pnlInquilinosLayout);
+        pnlInquilinosLayout.setHorizontalGroup(
+            pnlInquilinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInquilinosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlInquilinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlInquilinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jSeparator1))
                 .addContainerGap())
-            .addGroup(pnlInquilinoLayout.createSequentialGroup()
+            .addGroup(pnlInquilinosLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jLabel9)
+                .addComponent(lblLogo)
                 .addContainerGap(14, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInquilinoLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInquilinosLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblTituloUsuario)
+                .addComponent(lblTituloInquilinos)
                 .addGap(34, 34, 34))
         );
-        pnlInquilinoLayout.setVerticalGroup(
-            pnlInquilinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlInquilinoLayout.createSequentialGroup()
+        pnlInquilinosLayout.setVerticalGroup(
+            pnlInquilinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlInquilinosLayout.createSequentialGroup()
                 .addGap(67, 67, 67)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(lblTituloUsuario)
+                .addComponent(lblTituloInquilinos)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addComponent(jLabel9)
+                .addComponent(lblLogo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/save.png"))); // NOI18N
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/clean.png"))); // NOI18N
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/delete.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(pnlInquilino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlInquilinos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(18, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(150, 150, 150)
                         .addComponent(btnGuardar)
                         .addGap(18, 18, 18)
                         .addComponent(btnLimpiar)
                         .addGap(18, 18, 18)
-                        .addComponent(btnCancelar)
-                        .addGap(128, 128, 128))))
+                        .addComponent(btnCancelar)))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -268,11 +329,180 @@ public class JDlgNewInquilino extends javax.swing.JDialog {
                     .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(26, Short.MAX_VALUE))
-            .addComponent(pnlInquilino, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlInquilinos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    /**
+     *  validaciones de datos,registro y modifica, con la regla de NO DUPLICA ID
+     * @param evt al presionar el boton Guardar
+     */
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+   
+        if (txtCedulaInquilino.getText().isBlank()
+                || txtNombInquilino.getText().isBlank()
+                || cmbGeneroInquilino.getSelectedIndex() == 0
+                || dtFechaNac.getDate() == null
+                || txtTelefonoInquilino.getText().isBlank()
+                || txtCorreoelectronicoInquilino.getText().isBlank()
+                || txtADireccion.getText().isBlank()
+                || txtOcupacionInquilino.getText().isBlank()) {
+
+            JOptionPane.showMessageDialog(this, "Hay campos vacíos, por favor complete todos los datos", "Faltan datos", JOptionPane.WARNING_MESSAGE);;
+            return;
+        }
+
+        try {
+            String cedula = txtCedulaInquilino.getText().trim();
+            String nombre = txtNombInquilino.getText().trim();
+            String genero = cmbGeneroInquilino.getSelectedItem().toString();
+            java.time.LocalDate fechaNac = dtFechaNac.getDate();
+            String telefono = txtTelefonoInquilino.getText().trim();
+            String correo = txtCorreoelectronicoInquilino.getText().trim();
+            String direccion = txtADireccion.getText().trim();
+            String ocupacion = txtOcupacionInquilino.getText().trim();
+
+            try {
+                Long.parseLong(cedula);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "La Cédula debe contener solo números", "Cédula incorrecta", JOptionPane.ERROR_MESSAGE);
+                txtCedulaInquilino.requestFocus();
+                txtCedulaInquilino.selectAll();
+                return;
+            }
+            if (cedula.length() < 9) {
+                JOptionPane.showMessageDialog(this, "La Cédula debe tener al menos 9 dígitos\nTienes: " + cedula.length() + " dígito(s)", "Cédula muy corta", JOptionPane.ERROR_MESSAGE);
+                txtCedulaInquilino.requestFocus();
+                txtCedulaInquilino.selectAll();
+                return;
+            }
+            
+            String soloNumeros = telefono.replaceAll("[^0-9]", "");
+            if (soloNumeros.startsWith("506") && soloNumeros.length() > 3) {
+                soloNumeros = soloNumeros.substring(3);
+            }
+
+            try {
+                Long.parseLong(soloNumeros);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "El Teléfono debe contener solo números", "Teléfono incorrecto", JOptionPane.ERROR_MESSAGE);
+                txtTelefonoInquilino.requestFocus();
+                return;
+            }
+            if (soloNumeros.length() != 8) {
+                JOptionPane.showMessageDialog(this, "El Teléfono debe tener exactamente 8 dígitos\nTienes: " + soloNumeros.length() + " dígito(s)", "Teléfono incompleto", JOptionPane.ERROR_MESSAGE);
+                txtTelefonoInquilino.requestFocus();
+                return;
+            }
+
+            //  AGREGAR NUEVO o EDITAR EXISTENTE
+            switch (this.getTitle()) {
+                case "Agregar un Nuevo Inquilino" -> {
+                    //  MODO NUEVO
+                    Inquilino nuevo = new Inquilino(cedula, nombre, genero, fechaNac, direccion, telefono, correo, ocupacion);
+
+                    if (listaInquilinos.existeCedula(cedula)) {
+                        //  DECIDIR AGREGAR NUEVO o EDITAR EXISTENTE;
+                        JOptionPane.showMessageDialog(this, "Ya existe un inquilino con esta cédula", "Cédula duplicada", JOptionPane.ERROR_MESSAGE);
+                        txtCedulaInquilino.requestFocus();
+                        txtCedulaInquilino.selectAll();
+
+                    } else {
+                        listaInquilinos.agregarInquilino(nuevo);
+                        listaInquilinos.guardarArchivo();
+                        JOptionPane.showMessageDialog(this, "Inquilino guardado con éxito:\n" + nombre, "Guardado Exitoso",
+                                JOptionPane.INFORMATION_MESSAGE);
+                        btnLimpiarActionPerformed(evt);
+                    }
+                }
+
+                case "Editar Inquilino" -> {
+                    //MODO EDITAR 
+                    // verifica que no se repita la ced en caso que se repita
+                    String cedulaAnterior = inquilinoEditar.getCedInqui();
+                    if (!cedulaAnterior.equals(cedula)
+                            && listaInquilinos.existeCedula(cedula)) {
+                        JOptionPane.showMessageDialog(this, "La nueva cédula ya está registrada", "Cédula duplicada", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    // Actualizar todos los campos
+                    inquilinoEditar.setCedInqui(cedula);
+                    inquilinoEditar.setNomInqui(nombre);
+                    inquilinoEditar.setGenero(genero);
+                    inquilinoEditar.setFechNac(fechaNac);
+                    inquilinoEditar.setDireccion(direccion);
+                    inquilinoEditar.setTelefono(telefono);
+                    inquilinoEditar.setEmail(correo);
+                    inquilinoEditar.setOcupacion(ocupacion);
+
+                    listaInquilinos.guardarArchivo();
+
+                    JOptionPane.showMessageDialog(this, "Datos del inquilino actualizados", "Edición Exitosa", JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose(); 
+                }
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al guardar: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    /**
+     * Borra todos los campos y enfoca la cedula
+     * @param evtal presionar el boton Limpiar
+     */
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        // TODO add your handling code here:
+        txtCedulaInquilino.setText("");
+        txtNombInquilino.setText("");
+        cmbGeneroInquilino.setSelectedIndex(0);
+        dtFechaNac.clear();
+        txtTelefonoInquilino.setText("");
+        txtCorreoelectronicoInquilino.setText("");
+        txtADireccion.setText("");
+        txtOcupacionInquilino.setText("");
+        txtCedulaInquilino.requestFocus();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    /**
+     * Cancela la operacion de registro, siempre considerando campos con datos
+     * @param evt al prsionar el boton
+     */
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        if (!txtCedulaInquilino.getText().trim().isEmpty()
+                || !txtNombInquilino.getText().trim().isEmpty()) {
+
+            int opcion = javax.swing.JOptionPane.showConfirmDialog(this, "¿Seguro que deseas cancelar? Se perderán los datos.", "Confirmar Cancelación", javax.swing.JOptionPane.YES_NO_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE);
+            if (opcion != javax.swing.JOptionPane.YES_OPTION) {
+                return;
+            }
+        }
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    /**
+     * Se ejecuta al abrir la ventana
+     */
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        if (inquilinoEditar != null) {
+            //  LLENAR CAMPOS CON DATOS EXISTENTES
+            txtCedulaInquilino.setText(inquilinoEditar.getCedInqui());
+            txtCedulaInquilino.setEnabled(false); // Ced no editable
+            txtNombInquilino.setText(inquilinoEditar.getNomInqui());
+            cmbGeneroInquilino.setSelectedItem(inquilinoEditar.getGenero());
+            dtFechaNac.setDate(inquilinoEditar.getFechNac());
+            txtADireccion.setText(inquilinoEditar.getDireccion());
+            txtTelefonoInquilino.setText(inquilinoEditar.getTelefono());
+            txtCorreoelectronicoInquilino.setText(inquilinoEditar.getEmail());
+            txtOcupacionInquilino.setText(inquilinoEditar.getOcupacion());
+        }
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -323,24 +553,24 @@ public class JDlgNewInquilino extends javax.swing.JDialog {
     private javax.swing.JToggleButton btnLimpiar;
     private javax.swing.JComboBox<String> cmbGeneroInquilino;
     private com.github.lgooddatepicker.components.DatePicker dtFechaNac;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lblCedula;
     private javax.swing.JLabel lblCorreoElectronico;
     private javax.swing.JLabel lblDireccion;
     private javax.swing.JLabel lblFechaNacInquilino;
     private javax.swing.JLabel lblGenero;
     private javax.swing.JLabel lblIconoInquilino;
+    private javax.swing.JLabel lblInformacionInquilinos;
+    private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblNombreCompleto;
     private javax.swing.JLabel lblOcupacion;
     private javax.swing.JLabel lblTelefono;
-    private javax.swing.JLabel lblTituloInquilino;
-    private javax.swing.JLabel lblTituloUsuario;
-    private javax.swing.JPanel pnlInquilino;
+    private javax.swing.JLabel lblTituloInquilinos;
+    private javax.swing.JPanel pnlInquilinos;
+    private javax.swing.JTextArea txtADireccion;
     private javax.swing.JTextField txtCedulaInquilino;
     private javax.swing.JTextField txtCorreoelectronicoInquilino;
     private javax.swing.JTextField txtNombInquilino;

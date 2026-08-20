@@ -4,20 +4,31 @@
  */
 package vistas;
 
+import datos.AlmacenamientoAlquileres;
+import datos.AlmacenamientoInquilinos;
+import datos.AlmacenamientoMensualidad;
+import datos.AlmacenamientoPropietarios;
+import datos.AlmacenamientoViviendas;
 import java.awt.Image;
 import java.awt.Toolkit;
+import vista.DglAcercaDe;
 
 /**
- *
- * @author cahb2
+ *  ventana principal deL SISTEMA GUANARENT
+ * @author cahb294
  */
 public class JFrmSistemaAlquilerGuanaRent extends javax.swing.JFrame {
 
-    /**
-     * Creates new form JFrmSistemaAlquilerGuanaRent
+    public static AlmacenamientoPropietarios listaPropietarios;
+    public static AlmacenamientoViviendas listaViviendas;
+    public static AlmacenamientoInquilinos listaInquilinos;
+    public static AlmacenamientoAlquileres listaAlquileres;
+    
+     /* Creates new form JFrmSistemaAlquilerGuanaRent
      */
     public JFrmSistemaAlquilerGuanaRent() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -42,15 +53,16 @@ public class JFrmSistemaAlquilerGuanaRent extends javax.swing.JFrame {
         lblTituloUsuario = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
         jSeparator3 = new javax.swing.JSeparator();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        mnItenGanancia = new javax.swing.JMenuItem();
+        mnItemGanancia = new javax.swing.JMenuItem();
+        mnacercade = new javax.swing.JMenu();
+        mnitmInf = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("GuanaRent-CR");
         setIconImage(getIconImage());
         setIconImages(getIconImages());
 
@@ -117,8 +129,8 @@ public class JFrmSistemaAlquilerGuanaRent extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LogoGuanaRent1.png"))); // NOI18N
         jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        lblTituloUsuario.setFont(new java.awt.Font("NSimSun", 1, 24)); // NOI18N
-        lblTituloUsuario.setForeground(new java.awt.Color(153, 153, 0));
+        lblTituloUsuario.setFont(new java.awt.Font("NSimSun", 1, 18)); // NOI18N
+        lblTituloUsuario.setForeground(new java.awt.Color(102, 102, 0));
         lblTituloUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTituloUsuario.setText("- Menu Principal - ");
 
@@ -127,52 +139,55 @@ public class JFrmSistemaAlquilerGuanaRent extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 7, Short.MAX_VALUE)
-                        .addComponent(lblTituloUsuario)
-                        .addGap(10, 10, 10))
-                    .addComponent(jSeparator1))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jSeparator1)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addComponent(lblTituloUsuario)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel2))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(44, 44, 44)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnPropietarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnViviendas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnInquilinos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnAlquileres, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnMensualidad, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnGanancias, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 4, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(17, 17, 17))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnPropietarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnViviendas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnInquilinos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAlquileres, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnMensualidad, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGanancias, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblTituloUsuario)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPropietarios)
-                .addGap(19, 19, 19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnViviendas)
-                .addGap(19, 19, 19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnInquilinos)
-                .addGap(19, 19, 19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAlquileres)
-                .addGap(19, 19, 19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnMensualidad)
-                .addGap(19, 19, 19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnGanancias)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -189,39 +204,51 @@ public class JFrmSistemaAlquilerGuanaRent extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jRadioButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton3)
-                        .addGap(206, 206, 206))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton3))
-                .addContainerGap(12, Short.MAX_VALUE))
             .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Menu");
+
+        mnItenGanancia.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        mnItenGanancia.setText("Mensualidad");
+        mnItenGanancia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnItenGananciaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnItenGanancia);
+
+        mnItemGanancia.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        mnItemGanancia.setText("Ganacias");
+        mnItemGanancia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnItemGananciaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnItemGanancia);
+
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Acerca de");
-        jMenuBar1.add(jMenu2);
+        mnacercade.setText("Acerca de");
+
+        mnitmInf.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        mnitmInf.setText("Informacion");
+        mnitmInf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnitmInfActionPerformed(evt);
+            }
+        });
+        mnacercade.add(mnitmInf);
+
+        jMenuBar1.add(mnacercade);
 
         setJMenuBar(jMenuBar1);
 
@@ -229,7 +256,7 @@ public class JFrmSistemaAlquilerGuanaRent extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,36 +268,97 @@ public class JFrmSistemaAlquilerGuanaRent extends javax.swing.JFrame {
 
     private void btnAlquileresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlquileresActionPerformed
         // TODO add your handling code here:
+        //  Abre el formulario MAIN de Alquileres
+    listaViviendas = new AlmacenamientoViviendas();
+    listaInquilinos = new AlmacenamientoInquilinos();
+    listaAlquileres = new AlmacenamientoAlquileres(); 
+    listaViviendas.cargarArchivo();
+    listaInquilinos.cargarArchivo();
+    listaAlquileres.cargarArchivo();
+    
+    JDlgMainAlquiler ventana = new JDlgMainAlquiler(this, true,listaViviendas,listaInquilinos,listaAlquileres); 
+    ventana.setLocationRelativeTo(null);
+    ventana.setVisible(true);
     }//GEN-LAST:event_btnAlquileresActionPerformed
 
     private void btnPropietariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPropietariosActionPerformed
         // TODO add your handling code here:
-    JDlgNewPropietario ventanaJuego = new JDlgNewPropietario(this, true);
-    ventanaJuego.setVisible(true);
-    this.dispose();
+        // Abre el formulario MAIN de Propietarios
+        AlmacenamientoPropietarios lisPropietarios = new AlmacenamientoPropietarios();
+        JDlgMainPropietario ventana = new JDlgMainPropietario(this, true,lisPropietarios);
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
     }//GEN-LAST:event_btnPropietariosActionPerformed
 
     private void btnViviendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViviendasActionPerformed
         // TODO add your handling code here:
-        JDlgNewVivienda ventanaJuego = new JDlgNewVivienda(this, true);
-        ventanaJuego.setVisible(true);
-        this.dispose();
+        // Abre el formulario MAIN de Viviendas
+        listaViviendas = new AlmacenamientoViviendas();
+        listaPropietarios = new AlmacenamientoPropietarios();
+        listaPropietarios.cargarArchivo(); 
+        listaViviendas.cargarArchivo();
+        JDlgMainVivienda ventana = new JDlgMainVivienda(this, true, listaViviendas, listaPropietarios);
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
+
     }//GEN-LAST:event_btnViviendasActionPerformed
 
     private void btnInquilinosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInquilinosActionPerformed
         // TODO add your handling code here:
-        JDlgNewInquilino ventanaJuego = new JDlgNewInquilino(this, true);
-        ventanaJuego.setVisible(true);
-        this.dispose();
+        // Abre el formulario MAIN de Inquilinos
+        AlmacenamientoInquilinos lisInquilinos = new AlmacenamientoInquilinos();
+        JDlgMainInquilino ventana = new JDlgMainInquilino(this, true,lisInquilinos);
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
     }//GEN-LAST:event_btnInquilinosActionPerformed
 
     private void btnMensualidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMensualidadActionPerformed
         // TODO add your handling code here:
+        //  Abre el formulario MAIN de Mensualidades
+        AlmacenamientoMensualidad almacMensualidad = new AlmacenamientoMensualidad();
+        AlmacenamientoAlquileres almacAlquileres = new AlmacenamientoAlquileres();
+
+        almacMensualidad.cargarArchivo();  
+        almacAlquileres.cargarArchivo();     
+        JDlgMainMensualidad ventana = new JDlgMainMensualidad(this, true);
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
     }//GEN-LAST:event_btnMensualidadActionPerformed
 
     private void btnGananciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGananciasActionPerformed
         // TODO add your handling code here:
+       //  Abre el formulario de Ganancias / Reporte Financiero
+        JDlgMainGanacias ventana = new JDlgMainGanacias(this, true);
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
     }//GEN-LAST:event_btnGananciasActionPerformed
+
+    private void mnItenGananciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItenGananciaActionPerformed
+        // TODO add your handling code here:
+        AlmacenamientoMensualidad almacMensualidad = new AlmacenamientoMensualidad();
+        AlmacenamientoAlquileres almacAlquileres = new AlmacenamientoAlquileres();
+
+        almacMensualidad.cargarArchivo();   
+        almacAlquileres.cargarArchivo();   
+
+        JDlgMainMensualidad ventana = new JDlgMainMensualidad(this, true);
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_mnItenGananciaActionPerformed
+
+    private void mnItemGananciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnItemGananciaActionPerformed
+        // TODO add your handling code here:
+        JDlgMainGanacias ventana = new JDlgMainGanacias(this, true);
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_mnItemGananciaActionPerformed
+
+    private void mnitmInfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnitmInfActionPerformed
+        // TODO add your handling code here:
+        DglAcercaDe dlg = new DglAcercaDe(this, true);
+        dlg.setLocationRelativeTo(this);
+        dlg.setVisible(true);
+    }//GEN-LAST:event_mnitmInfActionPerformed
        @Override
     public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().
@@ -323,16 +411,16 @@ public class JFrmSistemaAlquilerGuanaRent extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel lblTituloUsuario;
+    private javax.swing.JMenuItem mnItemGanancia;
+    private javax.swing.JMenuItem mnItenGanancia;
+    private javax.swing.JMenu mnacercade;
+    private javax.swing.JMenuItem mnitmInf;
     // End of variables declaration//GEN-END:variables
 }

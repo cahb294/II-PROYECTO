@@ -8,10 +8,13 @@ import java.time.LocalDate;
 
 /**
  * Clase que representa a la persona que arrienda una vivienda.
+ * 
  * @author cahb294
+ * @author BrianOrozco
+ * @author MariaGallo
  */
 public class Inquilino {
-     //ATRIBUTOS 
+      
     private String cedInqui;        // Cedula Unica
     private String nomInqui;        // Nombre completo del inquilino
     private String genero;          // Genero: Masculino / Femenino
@@ -100,4 +103,9 @@ public class Inquilino {
     /** @param ocupacion Nueva ocupacion */
     public void setOcupacion(String ocupacion) {
         this.ocupacion = ocupacion; }
+    
+     @Override
+    public String toString() {
+        return cedInqui + " - " + nomInqui;
+    }
 }

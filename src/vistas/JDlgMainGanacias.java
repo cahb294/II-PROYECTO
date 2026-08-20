@@ -4,11 +4,28 @@
  */
 package vistas;
 
+
+import datos.AlmacenamientoAlquileres;
+import datos.AlmacenamientoMensualidad;
+import logica.Alquiler;
+import logica.Mensualidad;
+import javax.swing.JOptionPane;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
- *
- * @author cahb2
+ * clase para gestion de ganancias
+ * @author cahb294
+ * 
  */
 public class JDlgMainGanacias extends javax.swing.JDialog {
+
+    private AlmacenamientoAlquileres almacAlquileres;
+    private AlmacenamientoMensualidad almacMensualidad;
+        /**
+     * Modelo de tabla para mostrar los datos
+     */
+    private DefaultTableModel tblModel;
 
     /**
      * Creates new form J
@@ -16,8 +33,13 @@ public class JDlgMainGanacias extends javax.swing.JDialog {
     public JDlgMainGanacias(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        almacAlquileres = new AlmacenamientoAlquileres();
+        almacMensualidad = new AlmacenamientoMensualidad();
+        almacAlquileres.cargarArchivo();
+        almacMensualidad.cargarArchivo();
+   
     }
-
+  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,317 +49,340 @@ public class JDlgMainGanacias extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlInquilino4 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
+        pnlGanancia = new javax.swing.JPanel();
+        lblLogo = new javax.swing.JLabel();
         jSeparator9 = new javax.swing.JSeparator();
-        lblTituloUsuario3 = new javax.swing.JLabel();
+        lblTituloGanancia = new javax.swing.JLabel();
         jSeparator10 = new javax.swing.JSeparator();
-        lblIconoInquilino5 = new javax.swing.JLabel();
-        jDesktopPane1 = new javax.swing.JDesktopPane();
-        lblTituloUsuario5 = new javax.swing.JLabel();
-        jInternalFrame3 = new javax.swing.JInternalFrame();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jInternalFrame1 = new javax.swing.JInternalFrame();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jInternalFrame4 = new javax.swing.JInternalFrame();
+        lblIlustrativo = new javax.swing.JLabel();
+        DsktpPnlReporteFinanciero = new javax.swing.JDesktopPane();
+        lblTituloReporteFinanciero = new javax.swing.JLabel();
+        IntrnlFrmResumenFinaciero = new javax.swing.JInternalFrame();
+        PnlResumen = new javax.swing.JPanel();
+        lblTotalMensualidad = new javax.swing.JLabel();
+        txtTotalMensualidad = new javax.swing.JTextField();
+        lblGanacias = new javax.swing.JLabel();
+        txtGananciasDeCincoPorc = new javax.swing.JTextField();
+        lblTotalGanancia = new javax.swing.JLabel();
+        txtGanancia = new javax.swing.JTextField();
+        lblGarantias = new javax.swing.JLabel();
+        txtGarantiaDepos = new javax.swing.JTextField();
+        TbbdPnlPeriodos = new javax.swing.JTabbedPane();
+        IntrnlFrmPeriodoAnual = new javax.swing.JInternalFrame();
+        pnlPeriodoAnual = new javax.swing.JPanel();
+        lblAnio = new javax.swing.JLabel();
+        btnCalAnual = new javax.swing.JButton();
+        FrmttdTxtFldAnio = new javax.swing.JFormattedTextField();
+        IntrnlFrmPeriodoMensual = new javax.swing.JInternalFrame();
         jPanel4 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jFormattedTextField2 = new javax.swing.JFormattedTextField();
-        jInternalFrame2 = new javax.swing.JInternalFrame();
+        lblMes = new javax.swing.JLabel();
+        lblAnioParaPeriodoMensual = new javax.swing.JLabel();
+        BttnCalcularPerdMensual = new javax.swing.JButton();
+        CmbBxMes = new javax.swing.JComboBox<>();
+        FrmttdTxtFldAnioPerMensual = new javax.swing.JFormattedTextField();
+        IntrnlFrmDetalleResumenFinanciero = new javax.swing.JInternalFrame();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TblDetallesReporteFinanciero = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        pnlInquilino4.setBackground(new java.awt.Color(0, 153, 153));
-        pnlInquilino4.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), javax.swing.BorderFactory.createEtchedBorder()));
-        pnlInquilino4.setForeground(new java.awt.Color(255, 255, 255));
-
-        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LogoGuanaRent1.png"))); // NOI18N
-        jLabel13.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        lblTituloUsuario3.setBackground(new java.awt.Color(255, 255, 255));
-        lblTituloUsuario3.setFont(new java.awt.Font("NSimSun", 1, 24)); // NOI18N
-        lblTituloUsuario3.setForeground(new java.awt.Color(255, 255, 255));
-        lblTituloUsuario3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTituloUsuario3.setText("- Ganancias - ");
-
-        lblIconoInquilino5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Ganancias.png"))); // NOI18N
-
-        javax.swing.GroupLayout pnlInquilino4Layout = new javax.swing.GroupLayout(pnlInquilino4);
-        pnlInquilino4.setLayout(pnlInquilino4Layout);
-        pnlInquilino4Layout.setHorizontalGroup(
-            pnlInquilino4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlInquilino4Layout.createSequentialGroup()
-                .addGroup(pnlInquilino4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInquilino4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(pnlInquilino4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator10, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jSeparator9)))
-                    .addGroup(pnlInquilino4Layout.createSequentialGroup()
-                        .addGroup(pnlInquilino4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlInquilino4Layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addComponent(jLabel13))
-                            .addGroup(pnlInquilino4Layout.createSequentialGroup()
-                                .addGap(111, 111, 111)
-                                .addComponent(lblIconoInquilino5)))
-                        .addGap(0, 16, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(pnlInquilino4Layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(lblTituloUsuario3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        pnlInquilino4Layout.setVerticalGroup(
-            pnlInquilino4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlInquilino4Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(lblIconoInquilino5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblTituloUsuario3)
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(jLabel13)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        lblTituloUsuario5.setBackground(new java.awt.Color(153, 153, 0));
-        lblTituloUsuario5.setFont(new java.awt.Font("Perpetua Titling MT", 1, 24)); // NOI18N
-        lblTituloUsuario5.setForeground(new java.awt.Color(153, 153, 0));
-        lblTituloUsuario5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTituloUsuario5.setText("  Reporte Financiero ");
-
-        jInternalFrame3.setTitle("Resumen Financiero");
-        jInternalFrame3.setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/img/analytics.png"))); // NOI18N
-        jInternalFrame3.setVisible(true);
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel3.setText("Total Mensualidades");
-
-        jLabel4.setText("Ganancia 5% mensual:");
-
-        jLabel5.setText("Total Ganancia:");
-
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+        setTitle("Gestion Ganancias");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
             }
         });
 
-        jLabel7.setText("Garantía en deposito:");
+        pnlGanancia.setBackground(new java.awt.Color(0, 153, 153));
+        pnlGanancia.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), javax.swing.BorderFactory.createEtchedBorder()));
+        pnlGanancia.setForeground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LogoGuanaRent1.png"))); // NOI18N
+        lblLogo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        lblTituloGanancia.setBackground(new java.awt.Color(255, 255, 255));
+        lblTituloGanancia.setFont(new java.awt.Font("NSimSun", 1, 24)); // NOI18N
+        lblTituloGanancia.setForeground(new java.awt.Color(255, 255, 255));
+        lblTituloGanancia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloGanancia.setText("- Ganancias - ");
+
+        lblIlustrativo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Ganancias.png"))); // NOI18N
+
+        javax.swing.GroupLayout pnlGananciaLayout = new javax.swing.GroupLayout(pnlGanancia);
+        pnlGanancia.setLayout(pnlGananciaLayout);
+        pnlGananciaLayout.setHorizontalGroup(
+            pnlGananciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlGananciaLayout.createSequentialGroup()
+                .addGroup(pnlGananciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlGananciaLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(pnlGananciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator10, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jSeparator9)))
+                    .addGroup(pnlGananciaLayout.createSequentialGroup()
+                        .addGroup(pnlGananciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlGananciaLayout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(lblLogo))
+                            .addGroup(pnlGananciaLayout.createSequentialGroup()
+                                .addGap(43, 43, 43)
+                                .addComponent(lblTituloGanancia))
+                            .addGroup(pnlGananciaLayout.createSequentialGroup()
+                                .addGap(112, 112, 112)
+                                .addComponent(lblIlustrativo)))
+                        .addGap(0, 16, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        pnlGananciaLayout.setVerticalGroup(
+            pnlGananciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlGananciaLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(lblIlustrativo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblTituloGanancia)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(lblLogo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        DsktpPnlReporteFinanciero.setBackground(java.awt.SystemColor.activeCaption);
+
+        lblTituloReporteFinanciero.setBackground(new java.awt.Color(153, 153, 0));
+        lblTituloReporteFinanciero.setFont(new java.awt.Font("Perpetua Titling MT", 1, 24)); // NOI18N
+        lblTituloReporteFinanciero.setForeground(new java.awt.Color(255, 255, 255));
+        lblTituloReporteFinanciero.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloReporteFinanciero.setText("  Reporte Financiero ");
+
+        IntrnlFrmResumenFinaciero.setBackground(new java.awt.Color(102, 102, 0));
+        IntrnlFrmResumenFinaciero.setTitle("Resultados");
+        IntrnlFrmResumenFinaciero.setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/img/analytics.png"))); // NOI18N
+        IntrnlFrmResumenFinaciero.setVisible(true);
+
+        PnlResumen.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        lblTotalMensualidad.setText("Total Mensualidades");
+
+        txtTotalMensualidad.setEditable(false);
+
+        lblGanacias.setText("Ganancia 5% mensual:");
+
+        txtGananciasDeCincoPorc.setEditable(false);
+
+        lblTotalGanancia.setText("Total Ganancia:");
+
+        txtGanancia.setEditable(false);
+
+        lblGarantias.setText("Garantía en deposito:");
+
+        txtGarantiaDepos.setEditable(false);
+
+        javax.swing.GroupLayout PnlResumenLayout = new javax.swing.GroupLayout(PnlResumen);
+        PnlResumen.setLayout(PnlResumenLayout);
+        PnlResumenLayout.setHorizontalGroup(
+            PnlResumenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PnlResumenLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel3))
+                .addGroup(PnlResumenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblGarantias)
+                    .addComponent(lblGanacias)
+                    .addComponent(lblTotalGanancia)
+                    .addComponent(lblTotalMensualidad))
                 .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(PnlResumenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtTotalMensualidad, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtGarantiaDepos, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtGananciasDeCincoPorc, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtGanancia, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        PnlResumenLayout.setVerticalGroup(
+            PnlResumenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PnlResumenLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(PnlResumenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTotalMensualidad)
+                    .addComponent(txtTotalMensualidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(PnlResumenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblGarantias)
+                    .addComponent(txtGarantiaDepos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(PnlResumenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblGanacias)
+                    .addComponent(txtGananciasDeCincoPorc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(PnlResumenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTotalGanancia)
+                    .addComponent(txtGanancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jInternalFrame3Layout = new javax.swing.GroupLayout(jInternalFrame3.getContentPane());
-        jInternalFrame3.getContentPane().setLayout(jInternalFrame3Layout);
-        jInternalFrame3Layout.setHorizontalGroup(
-            jInternalFrame3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jInternalFrame3Layout.createSequentialGroup()
+        javax.swing.GroupLayout IntrnlFrmResumenFinacieroLayout = new javax.swing.GroupLayout(IntrnlFrmResumenFinaciero.getContentPane());
+        IntrnlFrmResumenFinaciero.getContentPane().setLayout(IntrnlFrmResumenFinacieroLayout);
+        IntrnlFrmResumenFinacieroLayout.setHorizontalGroup(
+            IntrnlFrmResumenFinacieroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(IntrnlFrmResumenFinacieroLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(PnlResumen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
         );
-        jInternalFrame3Layout.setVerticalGroup(
-            jInternalFrame3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jInternalFrame3Layout.createSequentialGroup()
+        IntrnlFrmResumenFinacieroLayout.setVerticalGroup(
+            IntrnlFrmResumenFinacieroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(IntrnlFrmResumenFinacieroLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(PnlResumen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(21, 21, 21))
         );
 
-        jInternalFrame1.setTitle("Períodio Anual");
-        jInternalFrame1.setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/img/schedule.png"))); // NOI18N
-        jInternalFrame1.setVisible(true);
+        IntrnlFrmPeriodoAnual.setTitle("Períodio Anual");
+        IntrnlFrmPeriodoAnual.setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/img/schedule.png"))); // NOI18N
+        IntrnlFrmPeriodoAnual.setVisible(true);
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pnlPeriodoAnual.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel2.setText("Año:");
+        lblAnio.setText("Año:");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/integration.png"))); // NOI18N
-        jButton1.setText("Generar");
+        btnCalAnual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/integration.png"))); // NOI18N
+        btnCalAnual.setText("Generar");
+        btnCalAnual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalAnualActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+        FrmttdTxtFldAnio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        javax.swing.GroupLayout pnlPeriodoAnualLayout = new javax.swing.GroupLayout(pnlPeriodoAnual);
+        pnlPeriodoAnual.setLayout(pnlPeriodoAnualLayout);
+        pnlPeriodoAnualLayout.setHorizontalGroup(
+            pnlPeriodoAnualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPeriodoAnualLayout.createSequentialGroup()
+                .addContainerGap(108, Short.MAX_VALUE)
+                .addGroup(pnlPeriodoAnualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPeriodoAnualLayout.createSequentialGroup()
+                        .addComponent(lblAnio)
+                        .addGap(144, 144, 144))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPeriodoAnualLayout.createSequentialGroup()
+                        .addGroup(pnlPeriodoAnualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(FrmttdTxtFldAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCalAnual))
+                        .addGap(90, 90, 90))))
+        );
+        pnlPeriodoAnualLayout.setVerticalGroup(
+            pnlPeriodoAnualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlPeriodoAnualLayout.createSequentialGroup()
                 .addContainerGap(11, Short.MAX_VALUE)
-                .addComponent(jLabel2)
+                .addComponent(lblAnio)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(FrmttdTxtFldAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jFormattedTextField1))
-                .addGap(43, 43, 43))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addGap(27, 27, 27))
+                .addComponent(btnCalAnual)
+                .addGap(19, 19, 19))
         );
 
-        javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
-        jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
-        jInternalFrame1Layout.setHorizontalGroup(
-            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jInternalFrame1Layout.createSequentialGroup()
+        javax.swing.GroupLayout IntrnlFrmPeriodoAnualLayout = new javax.swing.GroupLayout(IntrnlFrmPeriodoAnual.getContentPane());
+        IntrnlFrmPeriodoAnual.getContentPane().setLayout(IntrnlFrmPeriodoAnualLayout);
+        IntrnlFrmPeriodoAnualLayout.setHorizontalGroup(
+            IntrnlFrmPeriodoAnualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(IntrnlFrmPeriodoAnualLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pnlPeriodoAnual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
-        jInternalFrame1Layout.setVerticalGroup(
-            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jInternalFrame1Layout.createSequentialGroup()
+        IntrnlFrmPeriodoAnualLayout.setVerticalGroup(
+            IntrnlFrmPeriodoAnualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(IntrnlFrmPeriodoAnualLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlPeriodoAnual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Periodo Anual", jInternalFrame1);
+        TbbdPnlPeriodos.addTab("Periodo Anual", IntrnlFrmPeriodoAnual);
 
-        jInternalFrame4.setTitle("Períodio Mensual");
-        jInternalFrame4.setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/img/schedule.png"))); // NOI18N
-        jInternalFrame4.setVisible(true);
+        IntrnlFrmPeriodoMensual.setTitle("Períodio Mensual");
+        IntrnlFrmPeriodoMensual.setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/img/schedule.png"))); // NOI18N
+        IntrnlFrmPeriodoMensual.setVisible(true);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel8.setText("Mes:");
+        lblMes.setText("Mes:");
 
-        jLabel9.setText("Año:");
+        lblAnioParaPeriodoMensual.setText("Año:");
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/integration.png"))); // NOI18N
-        jButton2.setText("Generar");
+        BttnCalcularPerdMensual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/integration.png"))); // NOI18N
+        BttnCalcularPerdMensual.setText("Generar");
+        BttnCalcularPerdMensual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BttnCalcularPerdMensualActionPerformed(evt);
+            }
+        });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona mes", "Enero", "Febrero", "Marzo ", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre" }));
+        CmbBxMes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona mes", "Enero", "Febrero", "Marzo ", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(lblMes)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(CmbBxMes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(jButton2)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                        .addComponent(lblAnioParaPeriodoMensual)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(FrmttdTxtFldAnioPerMensual, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(BttnCalcularPerdMensual)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblMes)
+                            .addComponent(CmbBxMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblAnioParaPeriodoMensual)
+                            .addComponent(FrmttdTxtFldAnioPerMensual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(BttnCalcularPerdMensual))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jInternalFrame4Layout = new javax.swing.GroupLayout(jInternalFrame4.getContentPane());
-        jInternalFrame4.getContentPane().setLayout(jInternalFrame4Layout);
-        jInternalFrame4Layout.setHorizontalGroup(
-            jInternalFrame4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jInternalFrame4Layout.createSequentialGroup()
+        javax.swing.GroupLayout IntrnlFrmPeriodoMensualLayout = new javax.swing.GroupLayout(IntrnlFrmPeriodoMensual.getContentPane());
+        IntrnlFrmPeriodoMensual.getContentPane().setLayout(IntrnlFrmPeriodoMensualLayout);
+        IntrnlFrmPeriodoMensualLayout.setHorizontalGroup(
+            IntrnlFrmPeriodoMensualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(IntrnlFrmPeriodoMensualLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
-        jInternalFrame4Layout.setVerticalGroup(
-            jInternalFrame4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jInternalFrame4Layout.createSequentialGroup()
+        IntrnlFrmPeriodoMensualLayout.setVerticalGroup(
+            IntrnlFrmPeriodoMensualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(IntrnlFrmPeriodoMensualLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Periodo Mensual", jInternalFrame4);
+        TbbdPnlPeriodos.addTab("Periodo Mensual", IntrnlFrmPeriodoMensual);
 
-        jInternalFrame2.setTitle("Detalle de Mensualidades");
-        jInternalFrame2.setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/img/personal-profile.png"))); // NOI18N
-        jInternalFrame2.setVisible(true);
+        IntrnlFrmDetalleResumenFinanciero.setTitle("Detalle");
+        IntrnlFrmDetalleResumenFinanciero.setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/img/personal-profile.png"))); // NOI18N
+        IntrnlFrmDetalleResumenFinanciero.setVisible(true);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TblDetallesReporteFinanciero.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -345,55 +390,57 @@ public class JDlgMainGanacias extends javax.swing.JDialog {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(TblDetallesReporteFinanciero);
 
-        javax.swing.GroupLayout jInternalFrame2Layout = new javax.swing.GroupLayout(jInternalFrame2.getContentPane());
-        jInternalFrame2.getContentPane().setLayout(jInternalFrame2Layout);
-        jInternalFrame2Layout.setHorizontalGroup(
-            jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 707, Short.MAX_VALUE)
+        javax.swing.GroupLayout IntrnlFrmDetalleResumenFinancieroLayout = new javax.swing.GroupLayout(IntrnlFrmDetalleResumenFinanciero.getContentPane());
+        IntrnlFrmDetalleResumenFinanciero.getContentPane().setLayout(IntrnlFrmDetalleResumenFinancieroLayout);
+        IntrnlFrmDetalleResumenFinancieroLayout.setHorizontalGroup(
+            IntrnlFrmDetalleResumenFinancieroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1)
         );
-        jInternalFrame2Layout.setVerticalGroup(
-            jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        IntrnlFrmDetalleResumenFinancieroLayout.setVerticalGroup(
+            IntrnlFrmDetalleResumenFinancieroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
         );
 
-        jDesktopPane1.setLayer(lblTituloUsuario5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jInternalFrame3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jTabbedPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jInternalFrame2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        DsktpPnlReporteFinanciero.setLayer(lblTituloReporteFinanciero, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        DsktpPnlReporteFinanciero.setLayer(IntrnlFrmResumenFinaciero, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        DsktpPnlReporteFinanciero.setLayer(TbbdPnlPeriodos, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        DsktpPnlReporteFinanciero.setLayer(IntrnlFrmDetalleResumenFinanciero, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(196, 196, 196)
-                .addComponent(lblTituloUsuario5)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+        javax.swing.GroupLayout DsktpPnlReporteFinancieroLayout = new javax.swing.GroupLayout(DsktpPnlReporteFinanciero);
+        DsktpPnlReporteFinanciero.setLayout(DsktpPnlReporteFinancieroLayout);
+        DsktpPnlReporteFinancieroLayout.setHorizontalGroup(
+            DsktpPnlReporteFinancieroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DsktpPnlReporteFinancieroLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(DsktpPnlReporteFinancieroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(DsktpPnlReporteFinancieroLayout.createSequentialGroup()
+                        .addComponent(IntrnlFrmDetalleResumenFinanciero)
+                        .addContainerGap())
+                    .addGroup(DsktpPnlReporteFinancieroLayout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(TbbdPnlPeriodos, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jInternalFrame3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jInternalFrame2))
-                .addContainerGap())
+                        .addComponent(IntrnlFrmResumenFinaciero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(45, Short.MAX_VALUE))))
+            .addGroup(DsktpPnlReporteFinancieroLayout.createSequentialGroup()
+                .addGap(270, 270, 270)
+                .addComponent(lblTituloReporteFinanciero)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(lblTituloUsuario5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+        DsktpPnlReporteFinancieroLayout.setVerticalGroup(
+            DsktpPnlReporteFinancieroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DsktpPnlReporteFinancieroLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(lblTituloReporteFinanciero, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTabbedPane1)
-                    .addComponent(jInternalFrame3))
+                .addGroup(DsktpPnlReporteFinancieroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(TbbdPnlPeriodos)
+                    .addComponent(IntrnlFrmResumenFinaciero))
                 .addGap(18, 18, 18)
-                .addComponent(jInternalFrame2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addComponent(IntrnlFrmDetalleResumenFinanciero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -401,23 +448,210 @@ public class JDlgMainGanacias extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(pnlInquilino4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlGanancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDesktopPane1))
+                .addComponent(DsktpPnlReporteFinanciero)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlInquilino4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pnlGanancia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(DsktpPnlReporteFinanciero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void btnCalAnualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalAnualActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
 
+        int anio;
+
+        //VALIDA AÑO
+        try {
+            anio = Integer.parseInt(FrmttdTxtFldAnio.getText().trim());
+            if (anio < 1000 || anio > 9999) {
+                JOptionPane.showMessageDialog(this, "Escribe un año de 4 dígitos", "Año inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Solo números para el año", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // CALCULAR DESDE ALQUILERES Y MENSUALIDADES
+        calcularGananciaAnual(anio);
+    }
+
+    private void calcularGananciaAnual(int anio) {
+        double totalMensualidades = 0;
+        double totalGarantiaMitad = 0;
+        double ganancia5PorCiento = 0;
+
+        // SUMA EL DEPOSITO DE TODO LOS CONTRATOS
+        List<Alquiler> contratos = almacAlquileres.getListaAlquileres();
+        for (Alquiler alquiler : contratos) {
+            // Verificar si el contrato estaba vigente en ese año
+            if (alquilerVigenteEnAnio(alquiler, anio)) {
+                totalGarantiaMitad += alquiler.getDepositoGarantia() / 2.0;
+            }
+        }
+
+        // SUMA MENSUALIDAD AÑO Y CAL 5%
+        List<Mensualidad> mensualidades = almacMensualidad.getTodas();
+        for (Mensualidad m : mensualidades) {
+            if (m.getAnioActual() == anio) {
+                totalMensualidades += m.getMontoMes();
+                ganancia5PorCiento += m.getMontoMes() * 0.05; 
+            }
+        }
+        double totalGanancia = totalGarantiaMitad + ganancia5PorCiento;
+        txtTotalMensualidad.setText(String.format("%,.2f", totalMensualidades));
+        txtGarantiaDepos.setText(String.format("%,.2f", totalGarantiaMitad));
+        txtGananciasDeCincoPorc.setText(String.format("%,.2f", ganancia5PorCiento));
+        txtGanancia.setText(String.format("%,.2f", totalGanancia));
+
+    }//GEN-LAST:event_btnCalAnualActionPerformed
+
+    private void calcularGananciaMensual(int mes, int anio) {
+        double totalMensualidades = 0;
+        double totalGarantiaMitad = 0;
+        double ganancia5PorCiento = 0;
+
+        // SUMA GARANTIA DE CONTRATOS VIGENTES ESE MES
+        List<Alquiler> contratos = almacAlquileres.getListaAlquileres();
+        for (Alquiler alquiler : contratos) {
+            if (alquilerVigenteEnMes(alquiler, mes, anio)) {
+                totalGarantiaMitad += alquiler.getDepositoGarantia() / 2.0;
+            }
+        }
+
+        // SUMA MENSUALIDADES DE ESE MES Y AÑO
+        List<Mensualidad> mensualidades = almacMensualidad.getTodas();
+        for (Mensualidad m : mensualidades) {
+            if (m.getMesCobro() == mes && m.getAnioActual() == anio) {
+                totalMensualidades += m.getMontoMes();
+                ganancia5PorCiento += m.getMontoMes() * 0.05;
+            }
+        }
+        double totalGanancia = totalGarantiaMitad + ganancia5PorCiento;
+        txtTotalMensualidad.setText(String.format("%,.2f", totalMensualidades));
+        txtGarantiaDepos.setText(String.format("%,.2f", totalGarantiaMitad));
+        txtGananciasDeCincoPorc.setText(String.format("%,.2f", ganancia5PorCiento));
+        txtGanancia.setText(String.format("%,.2f", totalGanancia));
+    }
+    
+    private void BttnCalcularPerdMensualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BttnCalcularPerdMensualActionPerformed
+        // TODO add your handling code here:
+
+        String nombreMes = CmbBxMes.getSelectedItem().toString().trim();
+        int mes = obtenerNumeroMes(nombreMes);
+
+        if (mes < 1 || mes > 12) {
+            JOptionPane.showMessageDialog(this, "Seleccione un mes válido de la lista", "Mes inválido",JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int anio;
+        try {
+            String textoAnio = FrmttdTxtFldAnioPerMensual.getText().trim();
+            anio = Integer.parseInt(textoAnio);
+
+            if (anio < 1000 || anio > 9999) {
+                JOptionPane.showMessageDialog(this,"Escriba un año de 4 dígitos","Año inválido",JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this,"Escriba un año válido (solo números)","Error en el año",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        calcularGananciaMensual(mes, anio);
+
+        javax.swing.table.DefaultTableModel modeloTabla = 
+            (javax.swing.table.DefaultTableModel) TblDetallesReporteFinanciero.getModel();
+
+        List<Mensualidad> listaMensualidades = almacMensualidad.getTodas();
+        for (Mensualidad m : listaMensualidades) {
+            if (m.getMesCobro() == mes && m.getAnioActual() == anio) {
+                double ganancia5 = m.getMontoMes() * 0.05;
+
+                modeloTabla.addRow(new Object[]{
+                    m.getNumAlquiler(),                     // N° Contrato
+                    m.getMesCobro(),       // Mes
+                    String.format("%,.2f", m.getMontoMes()), // Monto mensual
+                    String.format("%,.2f", ganancia5),       // Tu ganancia
+                    m.getEstado()                              // Estado
+                });
+            }
+        }
+    
+
+
+
+    }//GEN-LAST:event_BttnCalcularPerdMensualActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        muestraTabla(WIDTH, ERROR);
+    }//GEN-LAST:event_formWindowActivated
+
+        // VERIFICAR SI CONTRATO SE ENCUENTRA VIGENTE EN ESE AÑO
+    private boolean alquilerVigenteEnAnio(Alquiler alquiler, int anio) {
+        int anioInicio = alquiler.getFechContrato().getYear();
+        int anioFin = alquiler.getFechContrato().plusMonths(alquiler.getCantMeses()).getYear();
+        return anio >= anioInicio && anio <= anioFin;
+    }
+
+    // VERIFICAR SI CONTRATO ESTA VIGENTE EN ESE MES
+    private boolean alquilerVigenteEnMes(Alquiler alquiler, int mes, int anio) {
+        java.time.LocalDate fechaCobro = java.time.LocalDate.of(anio, mes, 1);
+        java.time.LocalDate inicio = alquiler.getFechContrato();
+        java.time.LocalDate fin = inicio.plusMonths(alquiler.getCantMeses());
+        return (fechaCobro.isEqual(inicio) || fechaCobro.isAfter(inicio)) &&
+               fechaCobro.isBefore(fin.plusMonths(1));
+    }
+
+    // CONVERTIR NOMBRE DE MES A NÚMERO
+    private int obtenerNumeroMes(String nombre) {
+        String[] meses = {"Enero","Febrero","Marzo","Abril","Mayo","Junio",
+                          "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
+        for (int i = 0; i < meses.length; i++) {
+            if (meses[i].equals(nombre)) return i + 1;
+        }
+        return 0;
+    }
+
+    /**
+     * muestra la tabla
+     * @param mes Numero del mes a filtrar
+     * @param anio Año a filtrar
+     */
+    private void muestraTabla(int mes, int anio) {
+        String[] titulos = {"N° Contrato", "Mes", "Monto Mensual", "Ganancia 5%", "Estado"};
+          tblModel = new DefaultTableModel(null, titulos);
+          
+        List<Mensualidad> listaMensualidades = almacMensualidad.getTodas();
+
+        for (Mensualidad m : listaMensualidades) {
+            if (m.getMesCobro() == mes && m.getAnioActual() == anio) {
+                double ganancia5 = m.getMontoMes() * 0.05;
+                Object[] fila = {
+                    m.getNumAlquiler(), // N° Contrato
+                    m.getMesCobro(),
+                    String.format("%,.2f", m.getMontoMes()),
+                    String.format("%,.2f", ganancia5), 
+                    m.getEstado() 
+                };
+                tblModel.addRow(fila);
+            }
+        }
+
+        TblDetallesReporteFinanciero.setModel(tblModel);
+    }
     /**
      * @param args the command line arguments
      */
@@ -462,39 +696,39 @@ public class JDlgMainGanacias extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
-    private javax.swing.JInternalFrame jInternalFrame1;
-    private javax.swing.JInternalFrame jInternalFrame2;
-    private javax.swing.JInternalFrame jInternalFrame3;
-    private javax.swing.JInternalFrame jInternalFrame4;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JButton BttnCalcularPerdMensual;
+    private javax.swing.JComboBox<String> CmbBxMes;
+    private javax.swing.JDesktopPane DsktpPnlReporteFinanciero;
+    private javax.swing.JFormattedTextField FrmttdTxtFldAnio;
+    private javax.swing.JFormattedTextField FrmttdTxtFldAnioPerMensual;
+    private javax.swing.JInternalFrame IntrnlFrmDetalleResumenFinanciero;
+    private javax.swing.JInternalFrame IntrnlFrmPeriodoAnual;
+    private javax.swing.JInternalFrame IntrnlFrmPeriodoMensual;
+    private javax.swing.JInternalFrame IntrnlFrmResumenFinaciero;
+    private javax.swing.JPanel PnlResumen;
+    private javax.swing.JTabbedPane TbbdPnlPeriodos;
+    private javax.swing.JTable TblDetallesReporteFinanciero;
+    private javax.swing.JButton btnCalAnual;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator9;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JLabel lblIconoInquilino5;
-    private javax.swing.JLabel lblTituloUsuario3;
-    private javax.swing.JLabel lblTituloUsuario5;
-    private javax.swing.JPanel pnlInquilino4;
+    private javax.swing.JLabel lblAnio;
+    private javax.swing.JLabel lblAnioParaPeriodoMensual;
+    private javax.swing.JLabel lblGanacias;
+    private javax.swing.JLabel lblGarantias;
+    private javax.swing.JLabel lblIlustrativo;
+    private javax.swing.JLabel lblLogo;
+    private javax.swing.JLabel lblMes;
+    private javax.swing.JLabel lblTituloGanancia;
+    private javax.swing.JLabel lblTituloReporteFinanciero;
+    private javax.swing.JLabel lblTotalGanancia;
+    private javax.swing.JLabel lblTotalMensualidad;
+    private javax.swing.JPanel pnlGanancia;
+    private javax.swing.JPanel pnlPeriodoAnual;
+    private javax.swing.JTextField txtGanancia;
+    private javax.swing.JTextField txtGananciasDeCincoPorc;
+    private javax.swing.JTextField txtGarantiaDepos;
+    private javax.swing.JTextField txtTotalMensualidad;
     // End of variables declaration//GEN-END:variables
 }

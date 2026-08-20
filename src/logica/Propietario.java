@@ -7,9 +7,12 @@ package logica;
 /**
  * Clase que representa al dueño de viviendas en alquiler
  * @author cahb294
+ * @author BrianOrozco
+ * @author MariaGallo
+
  **/
 public class Propietario {
-//ATRIBUTOS
+
     private String cedPropiet;     // N° cedula --sin repetir
     private String nomPropiet;     // Nombre completo del propietario
     private String genero;         // Genero: Masculino / Femenino

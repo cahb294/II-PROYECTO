@@ -7,36 +7,38 @@ package logica;
 import java.time.LocalDate;
 
 /**
- *
+ * Clase que representa el contrato de alquiler de una vivienda
  * @author cahb294
+ * @author BrianOrozco
+ * @author MariaGallo
  */
 public class Alquiler {
-  // ATRIBUTOS
+
     private int numAlquiler;             // Numero Unico 
     private LocalDate fechContrato;     // Fecha de contrato 
-    private int cantMeses;               // Duración del contrato en meses
+    private int cantMeses;               // Duracion del contrato en meses
     private int numAdultos;              // Cantidad de personas adultas que habitan
     private int numNinos;                // Cantidad de menores de edad que habitan
     private double depositoGarantia;     // Dinero entregado como garantía al firmar
     private double precioAlquiler;       // Precio mensual acordado
-    private double porcIncremAnual;      // Porcentaje de aumento anual (rango permitido: 1% a 30%)
-    private String cedInquilino;         // Cédula del inquilino que firma el contrato
-    private String idVivienda;            // Código de la vivienda que se alquila
+    private double porcIncremAnual;      // Porcentaje de aumento anual 
+    private String cedInquilino;         // Cedula del inquilino que firma el contrato
+    private String idVivienda;            // Codigo de la vivienda que se alquila
     private String estado;               // Estado del contrato: Vigente, Vencido, Cancelado
 
     /**
-     * Constructor: crea un objeto Alquiler con todos los datos del contrato
-     * @param numAlquiler Número único consecutivo
-     * @param fechContrato Fecha de firma del contrato (convertida desde JDatePicker)
-     * @param cantMeses Duración del contrato en meses
+     * Constructor: crea un objeto Alquiler 
+     * @param numAlquiler Numero unico y consecutivo que incremeneta
+     * @param fechContrato Fecha de firma del contrato 
+     * @param cantMeses tiempo del contrato en meses
      * @param numAdultos Cantidad de adultos
      * @param numNinos Cantidad de niños
-     * @param depositoGarantia Monto de garantía
+     * @param depositoGarantia Monto de garantia
      * @param precioAlquiler Precio mensual acordado
      * @param porcIncremAnual Porcentaje de incremento anual
-     * @param cedInquilino Cédula del inquilino
-     * @param idVivienda Código de la vivienda
-     * @param estado Situación del contrato
+     * @param cedInquilino Cedula del inquilino
+     * @param idVivienda ID de la vivienda
+     * @param estado Condicion del contrato
      */
     public Alquiler(int numAlquiler, LocalDate fechContrato, int cantMeses, int numAdultos,
                     int numNinos, double depositoGarantia, double precioAlquiler,
@@ -54,14 +56,14 @@ public class Alquiler {
         this.estado = estado;
     }
 
-    // ==== GETTERS: Leer valor de cada atributo ====
-    /** @return Número único del contrato */
+
+    /** @return numero unico del contrato */
     public int getNumAlquiler() { return numAlquiler; }
 
     /** @return Fecha de firma del contrato */
     public LocalDate getFechContrato() { return fechContrato; }
 
-    /** @return Duración en meses */
+    /** @return Duracion en meses */
     public int getCantMeses() { return cantMeses; }
 
     /** @return Cantidad de adultos */
@@ -70,7 +72,7 @@ public class Alquiler {
     /** @return Cantidad de niños */
     public int getNumNinos() { return numNinos; }
 
-    /** @return Monto de garantía */
+    /** @return Monto de garantia */
     public double getDepositoGarantia() { return depositoGarantia; }
 
     /** @return Precio mensual acordado */
@@ -79,23 +81,22 @@ public class Alquiler {
     /** @return Porcentaje de incremento anual */
     public double getPorcIncremAnual() { return porcIncremAnual; }
 
-    /** @return Cédula del inquilino */
+    /** @return Cedula del inquilino */
     public String getCedInquilino() { return cedInquilino; }
 
-    /** @return Código de la vivienda */
+    /** @return Codigo de la vivienda */
     public String getIdVivienda() { return idVivienda; }
 
     /** @return Estado actual del contrato */
     public String getEstado() { return estado; }
 
-    // ==== SETTERS: Modificar valor de cada atributo ====
-    /** @param numAlquiler Nuevo número único */
+    /** @param numAlquiler Nuevo numero unico */
     public void setNumAlquiler(int numAlquiler) { this.numAlquiler = numAlquiler; }
 
     /** @param fechContrato Nueva fecha del contrato */
     public void setFechContrato(LocalDate fechContrato) { this.fechContrato = fechContrato; }
 
-    /** @param cantMeses Nueva duración en meses */
+    /** @param cantMeses Nueva duracion en meses */
     public void setCantMeses(int cantMeses) { this.cantMeses = cantMeses; }
 
     /** @param numAdultos Nueva cantidad de adultos */
@@ -104,7 +105,7 @@ public class Alquiler {
     /** @param numNinos Nueva cantidad de niños */
     public void setNumNinos(int numNinos) { this.numNinos = numNinos; }
 
-    /** @param depositoGarantia Nuevo monto de garantía */
+    /** @param depositoGarantia Nuevo monto de garantia */
     public void setDepositoGarantia(double depositoGarantia) { this.depositoGarantia = depositoGarantia; }
 
     /** @param precioAlquiler Nuevo precio mensual */
@@ -113,10 +114,10 @@ public class Alquiler {
     /** @param porcIncremAnual Nuevo porcentaje de incremento */
     public void setPorcIncremAnual(double porcIncremAnual) { this.porcIncremAnual = porcIncremAnual; }
 
-    /** @param cedInquilino Nueva cédula de inquilino */
+    /** @param cedInquilino Nueva cedula de inquilino */
     public void setCedInquilino(String cedInquilino) { this.cedInquilino = cedInquilino; }
 
-    /** @param idVivienda Nuevo código de vivienda */
+    /** @param idVivienda Nuevo codigo de vivienda */
     public void setIdVivienda(String idVivienda) { this.idVivienda = idVivienda; }
 
     /** @param estado Nuevo estado del contrato */

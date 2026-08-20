@@ -4,11 +4,31 @@
  */
 package vistas;
 
+import datos.AlmacenamientoMensualidad;
+import datos.AlmacenamientoAlquileres;
+import datos.AlmacenamientoInquilinos;
+import logica.Alquiler;
+import logica.Mensualidad;
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
- * @author cahb2
+ * @author cahb294
+ * @author BrianOrozco
+ * @author MariaGallo
  */
 public class JDlgMainMensualidad extends javax.swing.JDialog {
+    
+    private AlmacenamientoMensualidad almacMensualidad;
+    private AlmacenamientoAlquileres almacAlquileres; 
+    private AlmacenamientoInquilinos almacInquilino;
+    private DefaultTableModel modeloTabla;
+
 
     /**
      * Creates new form JDlgMainMensualidad
@@ -16,7 +36,99 @@ public class JDlgMainMensualidad extends javax.swing.JDialog {
     public JDlgMainMensualidad(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+
+        iniciarTabla();
+        almacMensualidad = new AlmacenamientoMensualidad();
+        almacAlquileres = new AlmacenamientoAlquileres();
+        almacMensualidad.cargarArchivo();
+        almacAlquileres.cargarArchivo();
+        txtFechaActual.setText(LocalDate.now().toString());
+        llenarTablaCompleta();
+     
+      
     }
+    
+    private void iniciarTabla() {
+        modeloTabla = new DefaultTableModel(new Object[][]{}, new String[]{
+            "N°", "Contrato", "Fecha", "Inquilino", "Mes", "Año", "Descuento %", "Monto ₡", "Estado"
+        });
+        TblMensualidades.setModel(modeloTabla);
+    }
+
+    //  CONVERTIR NOMBRE DE MES A NUM
+    private int obtenerNumeroMes(String nombreMes) {
+        switch (nombreMes.trim()) {
+            case "Enero": return 1;
+            case "Febrero": return 2;
+            case "Marzo": return 3;
+            case "Abril": return 4;
+            case "Mayo": return 5;
+            case "Junio": return 6;
+            case "Julio": return 7;
+            case "Agosto": return 8;
+            case "Septiembre": return 9;
+            case "Octubre": return 10;
+            case "Noviembre": return 11;
+            case "Diciembre": return 12;
+            default: return 0;
+        }
+    }
+
+    //  CONVERTIR NUM A NOMBRE DE MES
+    private String obtenerNombreMes(int numeroMes) {
+        String[] meses = {"Enero","Febrero","Marzo","Abril","Mayo","Junio",
+                          "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
+        return numeroMes >= 1 && numeroMes <= 12 ? meses[numeroMes - 1] : "Desconocido";
+    }
+
+    // ✅ DESCUENTO SEGÚN TEMPORADA (REGLAS DE LA GUÍA)
+    private double obtenerDescuentoPorTemporada(int mes) {
+        switch (mes) {
+            case 1: case 2: case 11: case 12: return 0.0;   // Alta → 0%
+            case 3: case 4: case 5: case 6: case 7: return 5.0; // Media → 5%
+            case 8: case 9: case 10: return 10.0;             // Baja → 10%
+            default: return 0.0;
+        }
+    }
+
+    // ✅ VERIFICAR SI CONTRATO ESTÁ VIGENTE EN ESE MES-AÑO
+    private List<Alquiler> buscarContratosVigentes(int mes, int anio) {
+        List<Alquiler> vigentes = new ArrayList<>();
+        LocalDate fechaCobro = LocalDate.of(anio, mes, 1);
+
+        for (Alquiler alquiler : almacAlquileres.getListaAlquileres()) {
+            LocalDate inicio = alquiler.getFechContrato();
+            LocalDate fin = inicio.plusMonths(alquiler.getCantMeses());
+
+            boolean esVigente = (fechaCobro.isEqual(inicio) || fechaCobro.isAfter(inicio)) &&
+                                fechaCobro.isBefore(fin.plusMonths(1));
+
+            if (esVigente) vigentes.add(alquiler);
+        }
+        return vigentes;
+    }
+
+    // ✅ LLENAR TABLA CON TODAS LAS MENSUALIDADES
+    private void llenarTablaCompleta() {
+        modeloTabla.setRowCount(0);
+        List<Mensualidad> lista = almacMensualidad.getTodas();
+
+        for (Mensualidad m : lista) {
+            modeloTabla.addRow(new Object[]{
+                m.getConsecutivo(),
+                m.getNumAlquiler(),
+                m.getFechCreacion(),
+                m.getNomInquilino(),
+                obtenerNombreMes(m.getMesCobro()),
+                m.getAnioActual(),
+                m.getDescuento() + "%",
+                String.format("%,.2f", m.getMontoMes()),
+                m.getEstado()
+            });
+        }
+        lblTituloTotalRegistros.setText( ""+lista.size());
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,47 +139,54 @@ public class JDlgMainMensualidad extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblTituloUsuario2 = new javax.swing.JLabel();
+        lblFiltar = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        lblTituloUsuario4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        lblTituloUsuario3 = new javax.swing.JLabel();
-        pnlInquilino1 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
+        TblMensualidades = new javax.swing.JTable();
+        txtTitutoReg = new javax.swing.JLabel();
+        txtBuscarFiltro = new javax.swing.JTextField();
+        lblTituloGestiondDeMensualidades = new javax.swing.JLabel();
+        pnlMensualidades = new javax.swing.JPanel();
+        lblLogo = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
-        lblTituloUsuario1 = new javax.swing.JLabel();
+        lblTituloMensualidades = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
-        lblIconoInquilino2 = new javax.swing.JLabel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jDesktopPane1 = new javax.swing.JDesktopPane();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jDesktopPane2 = new javax.swing.JDesktopPane();
-        jLabel3 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
+        lblIlustrativo = new javax.swing.JLabel();
+        TbbdPnGestionPorMensualidad = new javax.swing.JTabbedPane();
+        DsktpPnGenerarMensualidad = new javax.swing.JDesktopPane();
+        lblFechaActual = new javax.swing.JLabel();
+        txtFechaActual = new javax.swing.JTextField();
+        CmbBxMeses = new javax.swing.JComboBox<>();
+        lblMesCobro = new javax.swing.JLabel();
+        BttnGenerarCalculoMensualidad = new javax.swing.JButton();
+        lblAnioCobro = new javax.swing.JLabel();
+        txtAnioCobro = new javax.swing.JTextField();
+        DsktpPnMostrarMensualidad = new javax.swing.JDesktopPane();
+        lblMesConsultar = new javax.swing.JLabel();
+        CmbBxMesMostrar = new javax.swing.JComboBox<>();
+        lblAnioConsultarMostar = new javax.swing.JLabel();
+        BttnMostrarMensualidad = new javax.swing.JButton();
+        txtAnioConsultarMostrar = new javax.swing.JTextField();
+        ChckBxInquilino = new javax.swing.JCheckBox();
+        ChckBxMes = new javax.swing.JCheckBox();
+        ChckBxAnio = new javax.swing.JCheckBox();
+        btnConfirmacionDePago = new javax.swing.JToggleButton();
         btnLimpiar = new javax.swing.JToggleButton();
-        btnLimpiar1 = new javax.swing.JToggleButton();
+        lblTituloTotalRegistros = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Gestion Mensualidad");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
-        lblTituloUsuario2.setBackground(new java.awt.Color(153, 153, 0));
-        lblTituloUsuario2.setFont(new java.awt.Font("NSimSun", 0, 14)); // NOI18N
-        lblTituloUsuario2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTituloUsuario2.setText("Filtar por:");
+        lblFiltar.setBackground(new java.awt.Color(153, 153, 0));
+        lblFiltar.setFont(new java.awt.Font("NSimSun", 0, 14)); // NOI18N
+        lblFiltar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblFiltar.setText("Filtar por:");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TblMensualidades.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -75,296 +194,629 @@ public class JDlgMainMensualidad extends javax.swing.JDialog {
 
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(TblMensualidades);
 
-        lblTituloUsuario4.setBackground(new java.awt.Color(153, 153, 0));
-        lblTituloUsuario4.setFont(new java.awt.Font("NSimSun", 0, 18)); // NOI18N
-        lblTituloUsuario4.setForeground(new java.awt.Color(0, 102, 102));
-        lblTituloUsuario4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTituloUsuario4.setText("Total Registrados");
+        txtTitutoReg.setBackground(new java.awt.Color(153, 153, 0));
+        txtTitutoReg.setFont(new java.awt.Font("NSimSun", 0, 18)); // NOI18N
+        txtTitutoReg.setForeground(new java.awt.Color(0, 102, 102));
+        txtTitutoReg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtTitutoReg.setText("Total Registrados");
 
-        lblTituloUsuario3.setBackground(new java.awt.Color(153, 153, 0));
-        lblTituloUsuario3.setFont(new java.awt.Font("Perpetua Titling MT", 1, 24)); // NOI18N
-        lblTituloUsuario3.setForeground(new java.awt.Color(153, 153, 0));
-        lblTituloUsuario3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTituloUsuario3.setText("  Gestión de Mensualidades ");
-
-        pnlInquilino1.setBackground(new java.awt.Color(0, 153, 153));
-        pnlInquilino1.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), javax.swing.BorderFactory.createEtchedBorder()));
-        pnlInquilino1.setForeground(new java.awt.Color(255, 255, 255));
-
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LogoGuanaRent1.png"))); // NOI18N
-        jLabel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        lblTituloUsuario1.setBackground(new java.awt.Color(255, 255, 255));
-        lblTituloUsuario1.setFont(new java.awt.Font("NSimSun", 1, 24)); // NOI18N
-        lblTituloUsuario1.setForeground(new java.awt.Color(255, 255, 255));
-        lblTituloUsuario1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTituloUsuario1.setText("- Mensualidades - ");
-
-        lblIconoInquilino2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/mensualidad8.png"))); // NOI18N
-
-        javax.swing.GroupLayout pnlInquilino1Layout = new javax.swing.GroupLayout(pnlInquilino1);
-        pnlInquilino1.setLayout(pnlInquilino1Layout);
-        pnlInquilino1Layout.setHorizontalGroup(
-            pnlInquilino1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlInquilino1Layout.createSequentialGroup()
-                .addGroup(pnlInquilino1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInquilino1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(pnlInquilino1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jSeparator3)))
-                    .addGroup(pnlInquilino1Layout.createSequentialGroup()
-                        .addGroup(pnlInquilino1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlInquilino1Layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addComponent(jLabel10))
-                            .addGroup(pnlInquilino1Layout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(lblTituloUsuario1))
-                            .addGroup(pnlInquilino1Layout.createSequentialGroup()
-                                .addGap(111, 111, 111)
-                                .addComponent(lblIconoInquilino2)))
-                        .addGap(0, 16, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        pnlInquilino1Layout.setVerticalGroup(
-            pnlInquilino1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlInquilino1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(lblIconoInquilino2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblTituloUsuario1)
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(jLabel10)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jTabbedPane1.setForeground(new java.awt.Color(0, 153, 153));
-        jTabbedPane1.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-
-        jLabel1.setText("Fecha Actual:");
-
-        jTextField3.setEditable(false);
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enero", "Febrero", "Marzo ", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre" }));
-
-        jLabel2.setText("Mes de cobro:");
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/integration.png"))); // NOI18N
-        jButton1.setText("Generar");
-
-        jLabel5.setText("Año de cobro:");
-
-        jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jTextField3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jComboBox1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jTextField5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
-                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE))
-                            .addComponent(jTextField3))))
-                .addGap(27, 27, 27))
-        );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Generar Mensualidad", jDesktopPane1);
-
-        jLabel3.setText("Mes a consultar:");
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enero", "Febrero", "Marzo ", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre" }));
-
-        jLabel4.setText("Año a consultar:");
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/view.png"))); // NOI18N
-        jButton2.setText("Mostrar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        txtBuscarFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                txtBuscarFiltroActionPerformed(evt);
             }
         });
 
-        jDesktopPane2.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(jComboBox2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(jTextField4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        lblTituloGestiondDeMensualidades.setBackground(new java.awt.Color(153, 153, 0));
+        lblTituloGestiondDeMensualidades.setFont(new java.awt.Font("Perpetua Titling MT", 1, 24)); // NOI18N
+        lblTituloGestiondDeMensualidades.setForeground(new java.awt.Color(153, 153, 0));
+        lblTituloGestiondDeMensualidades.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloGestiondDeMensualidades.setText("  Gestión de Mensualidades ");
 
-        javax.swing.GroupLayout jDesktopPane2Layout = new javax.swing.GroupLayout(jDesktopPane2);
-        jDesktopPane2.setLayout(jDesktopPane2Layout);
-        jDesktopPane2Layout.setHorizontalGroup(
-            jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane2Layout.createSequentialGroup()
+        pnlMensualidades.setBackground(new java.awt.Color(0, 153, 153));
+        pnlMensualidades.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), javax.swing.BorderFactory.createEtchedBorder()));
+        pnlMensualidades.setForeground(new java.awt.Color(255, 255, 255));
+
+        lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LogoGuanaRent1.png"))); // NOI18N
+        lblLogo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        lblTituloMensualidades.setBackground(new java.awt.Color(255, 255, 255));
+        lblTituloMensualidades.setFont(new java.awt.Font("NSimSun", 1, 24)); // NOI18N
+        lblTituloMensualidades.setForeground(new java.awt.Color(255, 255, 255));
+        lblTituloMensualidades.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloMensualidades.setText("- Mensualidades - ");
+
+        lblIlustrativo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/mensualidad8.png"))); // NOI18N
+
+        javax.swing.GroupLayout pnlMensualidadesLayout = new javax.swing.GroupLayout(pnlMensualidades);
+        pnlMensualidades.setLayout(pnlMensualidadesLayout);
+        pnlMensualidadesLayout.setHorizontalGroup(
+            pnlMensualidadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlMensualidadesLayout.createSequentialGroup()
+                .addGroup(pnlMensualidadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMensualidadesLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(pnlMensualidadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jSeparator3)))
+                    .addGroup(pnlMensualidadesLayout.createSequentialGroup()
+                        .addGroup(pnlMensualidadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlMensualidadesLayout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(lblLogo))
+                            .addGroup(pnlMensualidadesLayout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addComponent(lblTituloMensualidades))
+                            .addGroup(pnlMensualidadesLayout.createSequentialGroup()
+                                .addGap(111, 111, 111)
+                                .addComponent(lblIlustrativo)))
+                        .addGap(0, 16, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        pnlMensualidadesLayout.setVerticalGroup(
+            pnlMensualidadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlMensualidadesLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(lblIlustrativo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblTituloMensualidades)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(lblLogo)
+                .addContainerGap(202, Short.MAX_VALUE))
+        );
+
+        TbbdPnGestionPorMensualidad.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        TbbdPnGestionPorMensualidad.setForeground(new java.awt.Color(0, 153, 153));
+        TbbdPnGestionPorMensualidad.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+
+        DsktpPnGenerarMensualidad.setBackground(java.awt.SystemColor.inactiveCaption);
+
+        lblFechaActual.setBackground(new java.awt.Color(255, 255, 255));
+        lblFechaActual.setForeground(new java.awt.Color(255, 255, 255));
+        lblFechaActual.setText("Fecha Actual:");
+
+        txtFechaActual.setEditable(false);
+
+        CmbBxMeses.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enero", "Febrero", "Marzo ", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre" }));
+
+        lblMesCobro.setBackground(new java.awt.Color(255, 255, 255));
+        lblMesCobro.setForeground(new java.awt.Color(255, 255, 255));
+        lblMesCobro.setText("Mes de cobro:");
+
+        BttnGenerarCalculoMensualidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/integration.png"))); // NOI18N
+        BttnGenerarCalculoMensualidad.setText("Generar");
+        BttnGenerarCalculoMensualidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BttnGenerarCalculoMensualidadActionPerformed(evt);
+            }
+        });
+
+        lblAnioCobro.setBackground(new java.awt.Color(255, 255, 255));
+        lblAnioCobro.setForeground(new java.awt.Color(255, 255, 255));
+        lblAnioCobro.setText("Año de cobro:");
+
+        DsktpPnGenerarMensualidad.setLayer(lblFechaActual, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        DsktpPnGenerarMensualidad.setLayer(txtFechaActual, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        DsktpPnGenerarMensualidad.setLayer(CmbBxMeses, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        DsktpPnGenerarMensualidad.setLayer(lblMesCobro, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        DsktpPnGenerarMensualidad.setLayer(BttnGenerarCalculoMensualidad, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        DsktpPnGenerarMensualidad.setLayer(lblAnioCobro, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        DsktpPnGenerarMensualidad.setLayer(txtAnioCobro, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout DsktpPnGenerarMensualidadLayout = new javax.swing.GroupLayout(DsktpPnGenerarMensualidad);
+        DsktpPnGenerarMensualidad.setLayout(DsktpPnGenerarMensualidadLayout);
+        DsktpPnGenerarMensualidadLayout.setHorizontalGroup(
+            DsktpPnGenerarMensualidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DsktpPnGenerarMensualidadLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jDesktopPane2Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                .addGroup(DsktpPnGenerarMensualidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(DsktpPnGenerarMensualidadLayout.createSequentialGroup()
+                        .addComponent(lblAnioCobro)
+                        .addGap(200, 418, Short.MAX_VALUE))
+                    .addGroup(DsktpPnGenerarMensualidadLayout.createSequentialGroup()
+                        .addGroup(DsktpPnGenerarMensualidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblFechaActual)
+                            .addComponent(lblMesCobro))
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jDesktopPane2Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                        .addGroup(DsktpPnGenerarMensualidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(DsktpPnGenerarMensualidadLayout.createSequentialGroup()
+                                .addGroup(DsktpPnGenerarMensualidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(CmbBxMeses, 0, 200, Short.MAX_VALUE)
+                                    .addComponent(txtAnioCobro))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(BttnGenerarCalculoMensualidad, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtFechaActual))))
+                .addGap(27, 27, 27))
+        );
+        DsktpPnGenerarMensualidadLayout.setVerticalGroup(
+            DsktpPnGenerarMensualidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DsktpPnGenerarMensualidadLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(DsktpPnGenerarMensualidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblFechaActual)
+                    .addComponent(txtFechaActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(DsktpPnGenerarMensualidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(DsktpPnGenerarMensualidadLayout.createSequentialGroup()
+                        .addGroup(DsktpPnGenerarMensualidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblMesCobro)
+                            .addComponent(CmbBxMeses, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(DsktpPnGenerarMensualidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblAnioCobro)
+                            .addComponent(txtAnioCobro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(BttnGenerarCalculoMensualidad, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+
+        TbbdPnGestionPorMensualidad.addTab("Generar Mensualidad", DsktpPnGenerarMensualidad);
+
+        lblMesConsultar.setForeground(new java.awt.Color(255, 255, 255));
+        lblMesConsultar.setText("Mes a consultar:");
+
+        CmbBxMesMostrar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enero", "Febrero", "Marzo ", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre" }));
+
+        lblAnioConsultarMostar.setForeground(new java.awt.Color(255, 255, 255));
+        lblAnioConsultarMostar.setText("Año a consultar:");
+
+        BttnMostrarMensualidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/view.png"))); // NOI18N
+        BttnMostrarMensualidad.setText("Mostrar");
+        BttnMostrarMensualidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BttnMostrarMensualidadActionPerformed(evt);
+            }
+        });
+
+        DsktpPnMostrarMensualidad.setLayer(lblMesConsultar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        DsktpPnMostrarMensualidad.setLayer(CmbBxMesMostrar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        DsktpPnMostrarMensualidad.setLayer(lblAnioConsultarMostar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        DsktpPnMostrarMensualidad.setLayer(BttnMostrarMensualidad, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        DsktpPnMostrarMensualidad.setLayer(txtAnioConsultarMostrar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout DsktpPnMostrarMensualidadLayout = new javax.swing.GroupLayout(DsktpPnMostrarMensualidad);
+        DsktpPnMostrarMensualidad.setLayout(DsktpPnMostrarMensualidadLayout);
+        DsktpPnMostrarMensualidadLayout.setHorizontalGroup(
+            DsktpPnMostrarMensualidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DsktpPnMostrarMensualidadLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(DsktpPnMostrarMensualidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(DsktpPnMostrarMensualidadLayout.createSequentialGroup()
+                        .addComponent(lblMesConsultar)
+                        .addGap(18, 18, 18)
+                        .addComponent(CmbBxMesMostrar, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(DsktpPnMostrarMensualidadLayout.createSequentialGroup()
+                        .addComponent(lblAnioConsultarMostar)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtAnioConsultarMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                        .addComponent(BttnMostrarMensualidad, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(29, 29, 29))
         );
-        jDesktopPane2Layout.setVerticalGroup(
-            jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDesktopPane2Layout.createSequentialGroup()
+        DsktpPnMostrarMensualidadLayout.setVerticalGroup(
+            DsktpPnMostrarMensualidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DsktpPnMostrarMensualidadLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(DsktpPnMostrarMensualidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblMesConsultar)
+                    .addComponent(CmbBxMesMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(DsktpPnMostrarMensualidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(DsktpPnMostrarMensualidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblAnioConsultarMostar)
+                        .addComponent(txtAnioConsultarMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(BttnMostrarMensualidad, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Mostrar Mensualidad", jDesktopPane2);
+        TbbdPnGestionPorMensualidad.addTab("Mostrar Mensualidad", DsktpPnMostrarMensualidad);
 
-        jCheckBox1.setFont(new java.awt.Font("NSimSun", 0, 14)); // NOI18N
-        jCheckBox1.setText("Inquilino");
+        ChckBxInquilino.setFont(new java.awt.Font("NSimSun", 0, 14)); // NOI18N
+        ChckBxInquilino.setText("Inquilino");
+        ChckBxInquilino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChckBxInquilinoActionPerformed(evt);
+            }
+        });
 
-        jCheckBox2.setFont(new java.awt.Font("NSimSun", 0, 14)); // NOI18N
-        jCheckBox2.setText("Mes");
+        ChckBxMes.setFont(new java.awt.Font("NSimSun", 0, 14)); // NOI18N
+        ChckBxMes.setText("Mes");
+        ChckBxMes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChckBxMesActionPerformed(evt);
+            }
+        });
 
-        jCheckBox3.setFont(new java.awt.Font("NSimSun", 0, 14)); // NOI18N
-        jCheckBox3.setText("Año");
+        ChckBxAnio.setFont(new java.awt.Font("NSimSun", 0, 14)); // NOI18N
+        ChckBxAnio.setText("Año");
+        ChckBxAnio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChckBxAnioActionPerformed(evt);
+            }
+        });
 
-        btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/check.png"))); // NOI18N
-        btnLimpiar.setText("Pagado ");
+        btnConfirmacionDePago.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/check.png"))); // NOI18N
+        btnConfirmacionDePago.setText("Pagado ");
+        btnConfirmacionDePago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmacionDePagoActionPerformed(evt);
+            }
+        });
 
-        btnLimpiar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/clean.png"))); // NOI18N
-        btnLimpiar1.setText("Limpiar");
+        btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/clean.png"))); // NOI18N
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
+
+        lblTituloTotalRegistros.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(pnlInquilino1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlMensualidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(116, 116, 116)
-                                .addComponent(lblTituloUsuario3))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(65, 65, 65)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblTituloUsuario2)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCheckBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCheckBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblTituloUsuario4)
-                                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                        .addContainerGap(66, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
                                 .addGap(21, 21, 21)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 619, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 881, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(203, 203, 203)
-                                .addComponent(btnLimpiar)
+                                .addGap(192, 192, 192)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(51, 51, 51)
+                                        .addComponent(lblTituloGestiondDeMensualidades))
+                                    .addComponent(TbbdPnGestionPorMensualidad, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblFiltar)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(ChckBxInquilino, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(ChckBxMes, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(ChckBxAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtBuscarFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addContainerGap(21, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(txtTitutoReg)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblTituloTotalRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(79, 79, 79))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnConfirmacionDePago)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnLimpiar1)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(btnLimpiar)
+                                .addGap(314, 314, 314))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlInquilino1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlMensualidades, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblTituloUsuario3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addComponent(lblTituloGestiondDeMensualidades, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(TbbdPnGestionPorMensualidad, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTituloUsuario2)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jCheckBox2)
-                    .addComponent(jCheckBox3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(lblTituloUsuario4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblFiltar)
+                    .addComponent(ChckBxInquilino)
+                    .addComponent(ChckBxMes)
+                    .addComponent(ChckBxAnio)
+                    .addComponent(txtBuscarFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTitutoReg)
+                    .addComponent(lblTituloTotalRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLimpiar1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnConfirmacionDePago, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void BttnMostrarMensualidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BttnMostrarMensualidadActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        String nombreMes = CmbBxMesMostrar.getSelectedItem().toString().trim();
+        int mes = obtenerNumeroMes(nombreMes);
+        int anio;
 
+        // ✅ Validar año
+        try {
+            anio = Integer.parseInt(txtAnioConsultarMostrar.getText().trim());
+            if (anio < 1000 || anio > 9999) {
+                JOptionPane.showMessageDialog(this, "El año debe tener 4 dígitos", "Año inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Escribe un año válido", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // ✅ Filtrar mensualidades de ese mes y año
+        List<Mensualidad> todas = almacMensualidad.getTodas();
+        List<Mensualidad> resultado = new ArrayList<>();
+
+        for (Mensualidad m : todas) {
+            if (m.getMesCobro() == mes && m.getAnioActual() == anio) {
+                resultado.add(m);
+            }
+        }
+
+        // ✅ Mostrar en tabla
+        modeloTabla.setRowCount(0);
+        if (resultado.isEmpty()) {
+            JOptionPane.showMessageDialog(this,"No hay mensualidades para " + nombreMes + " de " + anio,
+                "Sin datos", JOptionPane.INFORMATION_MESSAGE);
+            lblTituloTotalRegistros.setText("0");
+            return;
+        }
+
+        for (Mensualidad m : resultado) {
+            modeloTabla.addRow(new Object[]{
+                m.getConsecutivo(),
+                m.getNumAlquiler(),
+                m.getFechCreacion(),
+                m.getNomInquilino(),
+                obtenerNombreMes(m.getMesCobro()),
+                m.getAnioActual(),
+                m.getDescuento() + "%",
+                String.format("%,.2f", m.getMontoMes()),
+                m.getEstado()
+            });
+        }
+        lblTituloTotalRegistros.setText("Total: " + resultado.size() + " registros");
+        
+    }//GEN-LAST:event_BttnMostrarMensualidadActionPerformed
+
+    private void BttnGenerarCalculoMensualidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BttnGenerarCalculoMensualidadActionPerformed
+        // TODO add your handling code here:
+
+        String nombreMes = CmbBxMeses.getSelectedItem().toString().trim();
+        int mesCobro = obtenerNumeroMes(nombreMes);
+        int anioCobro;
+
+        // ✅ Validar mes
+        if (mesCobro == 0) {
+            JOptionPane.showMessageDialog(this, "Selecciona un mes", "Mes requerido", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // ✅ Validar año
+        try {
+            anioCobro = Integer.parseInt(txtAnioCobro.getText().trim());
+            if (anioCobro < 1000 || anioCobro > 9999) {
+                JOptionPane.showMessageDialog(this, "El año debe tener 4 dígitos", "Año inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Escribe un año válido (solo números)", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // ✅ REGLAS DE LA GUÍA: NO generar meses anteriores a hoy
+        LocalDate hoy = LocalDate.now();
+        YearMonth fechaGenerar = YearMonth.of(anioCobro, mesCobro);
+        YearMonth fechaHoy = YearMonth.from(hoy);
+
+        if (fechaGenerar.isBefore(fechaHoy)) {
+            JOptionPane.showMessageDialog(this,
+                "❌ No se pueden generar mensualidades de un mes anterior al actual.\n" +
+                "Hoy es: " + hoy.getMonth() + " de " + hoy.getYear(),
+                "Fecha no permitida", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // 2️⃣ BUSCAR CONTRATOS VIGENTES
+        List<Alquiler> contratosVigentes = buscarContratosVigentes(mesCobro, anioCobro);
+
+        if (contratosVigentes.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                "No hay contratos vigentes para " + nombreMes + " de " + anioCobro,
+                "Sin contratos", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        // 3️⃣ GENERAR 1 MENSUALIDAD POR CADA CONTRATO
+        int generadas = 0;
+        int duplicadas = 0;
+
+        for (Alquiler contrato : contratosVigentes) {
+            // ✅ Descuento según temporada
+            double descuento = obtenerDescuentoPorTemporada(mesCobro);
+
+            // ✅ Calcular monto final
+            double precioBase = contrato.getPrecioAlquiler();
+            double montoFinal = precioBase*(1 - (descuento / 100.0));
+
+            // ✅ Crear mensualidad (valida duplicados automáticamente)
+            boolean ok = almacMensualidad.generarMensualidad(
+                contrato.getNumAlquiler(),
+                contrato.getCedInquilino(),
+                mesCobro,
+                anioCobro,
+                descuento,
+                montoFinal
+            );
+
+            if (ok) generadas++;
+            else duplicadas++;
+        }
+
+        // 4️⃣ GUARDAR Y REFRESCAR
+        almacMensualidad.guardarArchivo();
+        llenarTablaCompleta();
+
+        // ✅ Mensaje final
+        String mensaje = "✅ Mensualidades generadas: " + generadas;
+        if (duplicadas > 0) mensaje += "\n⚠️ Ya existían: " + duplicadas + " (no se duplicaron)";
+        JOptionPane.showMessageDialog(this, mensaje, "Proceso completado", JOptionPane.INFORMATION_MESSAGE);
+    
+    }//GEN-LAST:event_BttnGenerarCalculoMensualidadActionPerformed
+
+    private void btnConfirmacionDePagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmacionDePagoActionPerformed
+        // TODO add your handling code here:
+
+        int fila = TblMensualidades.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Selecciona una mensualidad de la tabla", "Sin selección", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int consecutivo = Integer.parseInt(modeloTabla.getValueAt(fila, 0).toString());
+        String estado = modeloTabla.getValueAt(fila, 8).toString();
+
+        if (estado.equals("Cancelado")) {
+            JOptionPane.showMessageDialog(this, "Esta mensualidad ya está pagada", "Sin cambios", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        boolean ok = almacMensualidad.marcarComoCancelado(consecutivo);
+        if (ok) {
+            almacMensualidad.guardarArchivo();
+            llenarTablaCompleta();
+            JOptionPane.showMessageDialog(this, "✅ Mensualidad marcada como PAGADA", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+    }//GEN-LAST:event_btnConfirmacionDePagoActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        // TODO add your handling code here:
+        txtAnioCobro.setText("");
+        txtAnioConsultarMostrar.setText("");
+        txtBuscarFiltro.setText("");
+        ChckBxInquilino.setSelected(false);
+        ChckBxMes.setSelected(false);
+        ChckBxAnio.setSelected(false);
+        CmbBxMeses.setSelectedIndex(0);        
+        CmbBxMesMostrar.setSelectedIndex(0);   
+        llenarTablaCompleta();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+     
+    }//GEN-LAST:event_formWindowActivated
+
+    private void txtBuscarFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarFiltroActionPerformed
+        // TODO add your handling code here:
+        aplicarFiltros();
+        
+    }//GEN-LAST:event_txtBuscarFiltroActionPerformed
+
+    private void ChckBxInquilinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChckBxInquilinoActionPerformed
+        // TODO add your handling code here:
+        aplicarFiltros();
+    }//GEN-LAST:event_ChckBxInquilinoActionPerformed
+
+    private void ChckBxMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChckBxMesActionPerformed
+        // TODO add your handling code here:
+        aplicarFiltros();
+    }//GEN-LAST:event_ChckBxMesActionPerformed
+
+    private void ChckBxAnioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChckBxAnioActionPerformed
+        // TODO add your handling code here:
+        aplicarFiltros();
+    }//GEN-LAST:event_ChckBxAnioActionPerformed
+
+private void aplicarFiltros() {
+    List<Mensualidad> todas = almacMensualidad.getTodas();
+    List<Mensualidad> resultado = new ArrayList<>();
+
+    // ✅ LEER VALORES DE LOS FILTROS
+    String textoBuscar = txtBuscarFiltro.getText().trim().toLowerCase();
+    boolean filtrarInquilino = ChckBxInquilino.isSelected() && !textoBuscar.isEmpty();
+    boolean filtrarMes = ChckBxMes.isSelected();
+    boolean filtrarAnio = ChckBxAnio.isSelected() && !txtAnioConsultarMostrar.getText().trim().isEmpty();
+
+    int mesSeleccionado = 0;
+    int anioSeleccionado = 0;
+
+    // ✅ OBTENER MES SI ESTÁ ACTIVO
+    if (filtrarMes) {
+        String nombreMes = CmbBxMesMostrar.getSelectedItem().toString().trim();
+        mesSeleccionado = obtenerNumeroMes(nombreMes);
+    }
+
+    // ✅ OBTENER AÑO SI ESTÁ ACTIVO
+    if (filtrarAnio) {
+        try {
+            anioSeleccionado = Integer.parseInt(txtAnioConsultarMostrar.getText().trim());
+        } catch (NumberFormatException e) {
+            anioSeleccionado = 0;
+        }
+    }
+
+    // ✅ RECORRER TODAS Y APLICAR CADA FILTRO
+    for (Mensualidad m : todas) {
+        boolean pasa = true;
+
+        // 🟢 FILTRO POR INQUILINO (si está activado)
+        if (pasa && filtrarInquilino) {
+            if (!m.getNomInquilino().toLowerCase().contains(textoBuscar)) {
+                pasa = false;
+            }
+        }
+
+        // 🟡 FILTRO POR MES (si está activado)
+        if (pasa && filtrarMes) {
+            if (m.getMesCobro() != mesSeleccionado) {
+                pasa = false;
+            }
+        }
+
+        // 🔴 FILTRO POR AÑO (si está activado)
+        if (pasa && filtrarAnio) {
+            if (m.getAnioActual() != anioSeleccionado) {
+                pasa = false;
+            }
+        }
+
+        // ✅ SI PASA TODOS LOS FILTROS → LO AGREGA
+        if (pasa) {
+            resultado.add(m);
+        }
+    }
+
+    // ✅ MOSTRAR EL RESULTADO EN LA TABLA
+    modeloTabla.setRowCount(0);
+
+    for (Mensualidad m : resultado) {
+        modeloTabla.addRow(new Object[]{
+            m.getConsecutivo(),
+            m.getNumAlquiler(),
+            m.getFechCreacion(),
+            m.getNomInquilino(),
+            obtenerNombreMes(m.getMesCobro()),
+            m.getAnioActual(),
+            m.getDescuento() + "%",
+            String.format("%,.2f", m.getMontoMes()),
+            m.getEstado()
+        });
+    }
+
+    // ✅ ACTUALIZAR EL TOTAL
+    lblTituloTotalRegistros.setText("" + resultado.size());
+}
+                    
     /**
      * @param args the command line arguments
      */
@@ -408,37 +860,38 @@ public class JDlgMainMensualidad extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BttnGenerarCalculoMensualidad;
+    private javax.swing.JButton BttnMostrarMensualidad;
+    private javax.swing.JCheckBox ChckBxAnio;
+    private javax.swing.JCheckBox ChckBxInquilino;
+    private javax.swing.JCheckBox ChckBxMes;
+    private javax.swing.JComboBox<String> CmbBxMesMostrar;
+    private javax.swing.JComboBox<String> CmbBxMeses;
+    private javax.swing.JDesktopPane DsktpPnGenerarMensualidad;
+    private javax.swing.JDesktopPane DsktpPnMostrarMensualidad;
+    private javax.swing.JTabbedPane TbbdPnGestionPorMensualidad;
+    private javax.swing.JTable TblMensualidades;
+    private javax.swing.JToggleButton btnConfirmacionDePago;
     private javax.swing.JToggleButton btnLimpiar;
-    private javax.swing.JToggleButton btnLimpiar1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JDesktopPane jDesktopPane2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JLabel lblIconoInquilino2;
-    private javax.swing.JLabel lblTituloUsuario1;
-    private javax.swing.JLabel lblTituloUsuario2;
-    private javax.swing.JLabel lblTituloUsuario3;
-    private javax.swing.JLabel lblTituloUsuario4;
-    private javax.swing.JPanel pnlInquilino1;
+    private javax.swing.JLabel lblAnioCobro;
+    private javax.swing.JLabel lblAnioConsultarMostar;
+    private javax.swing.JLabel lblFechaActual;
+    private javax.swing.JLabel lblFiltar;
+    private javax.swing.JLabel lblIlustrativo;
+    private javax.swing.JLabel lblLogo;
+    private javax.swing.JLabel lblMesCobro;
+    private javax.swing.JLabel lblMesConsultar;
+    private javax.swing.JLabel lblTituloGestiondDeMensualidades;
+    private javax.swing.JLabel lblTituloMensualidades;
+    private javax.swing.JTextField lblTituloTotalRegistros;
+    private javax.swing.JPanel pnlMensualidades;
+    private javax.swing.JTextField txtAnioCobro;
+    private javax.swing.JTextField txtAnioConsultarMostrar;
+    private javax.swing.JTextField txtBuscarFiltro;
+    private javax.swing.JTextField txtFechaActual;
+    private javax.swing.JLabel txtTitutoReg;
     // End of variables declaration//GEN-END:variables
 }

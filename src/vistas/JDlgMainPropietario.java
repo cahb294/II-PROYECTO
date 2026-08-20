@@ -4,19 +4,51 @@
  */
 package vistas;
 
+import datos.AlmacenamientoPropietarios;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import logica.Propietario;
+
 /**
- *
- * @author cahb2
+ * Ventana principal de Gestion de Contratos de propietario
+ * 
+ * @author cahb294
+ * @author BrianOrozco
+ * @author MariaGallo
  */
 public class JDlgMainPropietario extends javax.swing.JDialog {
 
+    /**
+     * Almacenamiento compartido con la lista de propietarios
+     */
+    protected AlmacenamientoPropietarios listaPropietarios;
+    /**
+     * Modelo de tabla para construir y mostrar los registros
+     */
+    private DefaultTableModel tblModel;
+    
     /**
      * Creates new form JDlgPropiedad
      */
     public JDlgMainPropietario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.listaPropietarios = new AlmacenamientoPropietarios();
     }
+    
+    /**
+     * Constructor que RECIBE EL ALMACENAMIENTO como parametro
+     * @param parent Ventana padre
+     * @param modal Indica si es modal
+     * @param listaPropietarios Objeto con la lista de propietarios a gestionar
+     */
+    public JDlgMainPropietario(java.awt.Frame parent, boolean modal, AlmacenamientoPropietarios listaPropietarios) {
+        super(parent, modal);
+        initComponents();
+        this.listaPropietarios = listaPropietarios;
+        listaPropietarios.cargarArchivo();
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,104 +59,116 @@ public class JDlgMainPropietario extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlInquilino1 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
+        pnlPropietarios = new javax.swing.JPanel();
+        lblLogo = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
-        lblTituloUsuario1 = new javax.swing.JLabel();
+        lblTituloPropietarios = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
-        lblIconoInquilino2 = new javax.swing.JLabel();
-        lblTituloUsuario2 = new javax.swing.JLabel();
-        lblTituloUsuario3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        lblTituloUsuario4 = new javax.swing.JLabel();
+        lblIlustrativo = new javax.swing.JLabel();
+        lblBuscar = new javax.swing.JLabel();
+        lblTituloRegistroDePropietarios = new javax.swing.JLabel();
+        txtBuscar = new javax.swing.JTextField();
+        lblTotalRegistrados = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jTextField2 = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        TblPropietarios = new javax.swing.JTable();
+        txtCantReg = new javax.swing.JTextField();
+        pnlOpcionesUsuarios = new javax.swing.JPanel();
+        BttnNuevo = new javax.swing.JButton();
+        BttnEditar = new javax.swing.JButton();
+        BttnEliminar = new javax.swing.JButton();
+        BttnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Gestion Propietarios");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
-        pnlInquilino1.setBackground(new java.awt.Color(0, 153, 153));
-        pnlInquilino1.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), javax.swing.BorderFactory.createEtchedBorder()));
-        pnlInquilino1.setForeground(new java.awt.Color(255, 255, 255));
+        pnlPropietarios.setBackground(new java.awt.Color(0, 153, 153));
+        pnlPropietarios.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), javax.swing.BorderFactory.createEtchedBorder()));
+        pnlPropietarios.setForeground(new java.awt.Color(255, 255, 255));
 
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LogoGuanaRent1.png"))); // NOI18N
-        jLabel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LogoGuanaRent1.png"))); // NOI18N
+        lblLogo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        lblTituloUsuario1.setBackground(new java.awt.Color(255, 255, 255));
-        lblTituloUsuario1.setFont(new java.awt.Font("NSimSun", 1, 24)); // NOI18N
-        lblTituloUsuario1.setForeground(new java.awt.Color(255, 255, 255));
-        lblTituloUsuario1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTituloUsuario1.setText("- Propietarios - ");
+        lblTituloPropietarios.setBackground(new java.awt.Color(255, 255, 255));
+        lblTituloPropietarios.setFont(new java.awt.Font("NSimSun", 1, 24)); // NOI18N
+        lblTituloPropietarios.setForeground(new java.awt.Color(255, 255, 255));
+        lblTituloPropietarios.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloPropietarios.setText("- Propietarios - ");
 
-        lblIconoInquilino2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Propietario8.png"))); // NOI18N
+        lblIlustrativo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Propietario8.png"))); // NOI18N
 
-        javax.swing.GroupLayout pnlInquilino1Layout = new javax.swing.GroupLayout(pnlInquilino1);
-        pnlInquilino1.setLayout(pnlInquilino1Layout);
-        pnlInquilino1Layout.setHorizontalGroup(
-            pnlInquilino1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlInquilino1Layout.createSequentialGroup()
-                .addGroup(pnlInquilino1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInquilino1Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlPropietariosLayout = new javax.swing.GroupLayout(pnlPropietarios);
+        pnlPropietarios.setLayout(pnlPropietariosLayout);
+        pnlPropietariosLayout.setHorizontalGroup(
+            pnlPropietariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlPropietariosLayout.createSequentialGroup()
+                .addGroup(pnlPropietariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPropietariosLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(pnlInquilino1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlPropietariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jSeparator3)))
-                    .addGroup(pnlInquilino1Layout.createSequentialGroup()
-                        .addGroup(pnlInquilino1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlInquilino1Layout.createSequentialGroup()
+                    .addGroup(pnlPropietariosLayout.createSequentialGroup()
+                        .addGroup(pnlPropietariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlPropietariosLayout.createSequentialGroup()
                                 .addGap(14, 14, 14)
-                                .addComponent(jLabel10))
-                            .addGroup(pnlInquilino1Layout.createSequentialGroup()
+                                .addComponent(lblLogo))
+                            .addGroup(pnlPropietariosLayout.createSequentialGroup()
                                 .addGap(101, 101, 101)
-                                .addComponent(lblIconoInquilino2)))
+                                .addComponent(lblIlustrativo)))
                         .addGap(0, 8, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInquilino1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPropietariosLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblTituloUsuario1)
+                .addComponent(lblTituloPropietarios)
                 .addGap(21, 21, 21))
         );
-        pnlInquilino1Layout.setVerticalGroup(
-            pnlInquilino1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlInquilino1Layout.createSequentialGroup()
+        pnlPropietariosLayout.setVerticalGroup(
+            pnlPropietariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlPropietariosLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(lblIconoInquilino2)
+                .addComponent(lblIlustrativo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(lblTituloUsuario1)
+                .addComponent(lblTituloPropietarios)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addComponent(jLabel10)
+                .addComponent(lblLogo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        lblTituloUsuario2.setBackground(new java.awt.Color(153, 153, 0));
-        lblTituloUsuario2.setFont(new java.awt.Font("NSimSun", 0, 18)); // NOI18N
-        lblTituloUsuario2.setForeground(new java.awt.Color(0, 102, 102));
-        lblTituloUsuario2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTituloUsuario2.setText("Buscar:");
+        lblBuscar.setBackground(new java.awt.Color(153, 153, 0));
+        lblBuscar.setFont(new java.awt.Font("NSimSun", 0, 18)); // NOI18N
+        lblBuscar.setForeground(new java.awt.Color(0, 102, 102));
+        lblBuscar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBuscar.setText("Buscar:");
 
-        lblTituloUsuario3.setBackground(new java.awt.Color(153, 153, 0));
-        lblTituloUsuario3.setFont(new java.awt.Font("Perpetua Titling MT", 1, 24)); // NOI18N
-        lblTituloUsuario3.setForeground(new java.awt.Color(153, 153, 0));
-        lblTituloUsuario3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTituloUsuario3.setText("  Registro de Propietarios ");
+        lblTituloRegistroDePropietarios.setBackground(new java.awt.Color(153, 153, 0));
+        lblTituloRegistroDePropietarios.setFont(new java.awt.Font("Perpetua Titling MT", 1, 24)); // NOI18N
+        lblTituloRegistroDePropietarios.setForeground(new java.awt.Color(153, 153, 0));
+        lblTituloRegistroDePropietarios.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloRegistroDePropietarios.setText("  Registro de Propietarios ");
 
-        lblTituloUsuario4.setBackground(new java.awt.Color(153, 153, 0));
-        lblTituloUsuario4.setFont(new java.awt.Font("NSimSun", 0, 18)); // NOI18N
-        lblTituloUsuario4.setForeground(new java.awt.Color(0, 102, 102));
-        lblTituloUsuario4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTituloUsuario4.setText("Total Registrados:");
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        lblTotalRegistrados.setBackground(new java.awt.Color(153, 153, 0));
+        lblTotalRegistrados.setFont(new java.awt.Font("NSimSun", 0, 18)); // NOI18N
+        lblTotalRegistrados.setForeground(new java.awt.Color(0, 102, 102));
+        lblTotalRegistrados.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTotalRegistrados.setText("Total Registrados:");
+
+        TblPropietarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -132,49 +176,69 @@ public class JDlgMainPropietario extends javax.swing.JDialog {
 
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(TblPropietarios);
 
-        jTextField2.setEditable(false);
+        txtCantReg.setEditable(false);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        pnlOpcionesUsuarios.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/new.png"))); // NOI18N
-        jButton6.setText("Nuevo");
+        BttnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/new.png"))); // NOI18N
+        BttnNuevo.setText("Nuevo");
+        BttnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BttnNuevoActionPerformed(evt);
+            }
+        });
 
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/edit.png"))); // NOI18N
-        jButton7.setText("Editar");
-        jButton7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        BttnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/edit.png"))); // NOI18N
+        BttnEditar.setText("Editar");
+        BttnEditar.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        BttnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BttnEditarActionPerformed(evt);
+            }
+        });
 
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/eliminar.png"))); // NOI18N
-        jButton8.setText("Eliminar");
+        BttnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/eliminar.png"))); // NOI18N
+        BttnEliminar.setText("Eliminar");
+        BttnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BttnEliminarActionPerformed(evt);
+            }
+        });
 
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/back.png"))); // NOI18N
-        jButton9.setText("Regresar");
+        BttnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/back.png"))); // NOI18N
+        BttnRegresar.setText("Regresar");
+        BttnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BttnRegresarActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlOpcionesUsuariosLayout = new javax.swing.GroupLayout(pnlOpcionesUsuarios);
+        pnlOpcionesUsuarios.setLayout(pnlOpcionesUsuariosLayout);
+        pnlOpcionesUsuariosLayout.setHorizontalGroup(
+            pnlOpcionesUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlOpcionesUsuariosLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(jButton6)
+                .addComponent(BttnNuevo)
                 .addGap(18, 18, 18)
-                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(BttnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(BttnEditar)
                 .addGap(18, 18, 18)
-                .addComponent(jButton7)
-                .addGap(18, 18, 18)
-                .addComponent(jButton9)
+                .addComponent(BttnRegresar)
                 .addContainerGap(15, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        pnlOpcionesUsuariosLayout.setVerticalGroup(
+            pnlOpcionesUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlOpcionesUsuariosLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton7)
-                    .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton9))
+                .addGroup(pnlOpcionesUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BttnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BttnEditar)
+                    .addComponent(BttnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BttnRegresar))
                 .addGap(15, 15, 15))
         );
 
@@ -183,57 +247,197 @@ public class JDlgMainPropietario extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(pnlInquilino1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlPropietarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 893, Short.MAX_VALUE)
+                        .addGap(19, 19, 19))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pnlOpcionesUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(44, 44, 44)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(92, 92, 92)
+                                .addComponent(lblTituloRegistroDePropietarios))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(110, 110, 110)
-                                .addComponent(lblTituloUsuario2)
+                                .addGap(71, 71, 71)
+                                .addComponent(lblBuscar)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblTituloUsuario3)
-                                .addGap(97, 97, 97)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(178, 178, 178))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblTituloUsuario4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 619, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 18, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblTotalRegistrados)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCantReg, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlInquilino1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlPropietarios, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
-                .addComponent(lblTituloUsuario3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblTituloUsuario2))
-                .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addComponent(lblTituloRegistroDePropietarios, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblTituloUsuario4))
-                .addGap(22, 22, 22))
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblBuscar))
+                .addGap(24, 24, 24)
+                .addComponent(pnlOpcionesUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCantReg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTotalRegistrados))
+                .addGap(28, 28, 28))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+/**
+ * 
+ * Abre el formulario para agregar un NUEVO propietario
+ * @param evt 
+ */
+    private void BttnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BttnNuevoActionPerformed
+        // TODO add your handling code here:
 
+        JDlgNewPropietario win = new JDlgNewPropietario(null, true, listaPropietarios);
+        win.setTitle("Agregar un Nuevo Propietario");
+        win.setLocationRelativeTo(null);
+        win.setVisible(true);
+        this.listaPropietarios = win.listaPropietarios;
+        listaPropietarios.guardarArchivo();
+        muestraTabla();
+    }//GEN-LAST:event_BttnNuevoActionPerformed
+
+    /**
+     * Borra el propietario selecionado 
+     */
+    private void BttnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BttnEliminarActionPerformed
+        // TODO add your handling code here:
+        if (TblPropietarios.getSelectedRowCount() == 1) {
+            int fila = TblPropietarios.getSelectedRow();
+            String cedula = listaPropietarios.getListaPropietarios().get(fila).getCedPropiet();
+            
+            int resp = JOptionPane.showConfirmDialog(this,"¿Desea eliminar al Propietario con cédula:\n" + cedula + "?");
+
+            if (resp == 0) {  // 0 = Si, eliminar
+                if (listaPropietarios.eliminarPropietario(cedula)) {
+                    JOptionPane.showMessageDialog(this, 
+                            " Propietario eliminado correctamente");
+                    muestraTabla(); // Refrescar tabla despues de borrar
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this,  " Debe seleccionar 1 Propietario en la tabla",
+                    "Sin selección", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_BttnEliminarActionPerformed
+
+    /*
+    * ABRE formulario con los datos para ser modifiocado.
+    */
+    private void BttnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BttnEditarActionPerformed
+        // TODO add your handling code here:
+        if (TblPropietarios.getSelectedRowCount() == 1) {
+            int pos = TblPropietarios.getSelectedRow();
+            
+            String cedula = listaPropietarios.getListaPropietarios().get(pos).getCedPropiet();
+            Propietario propietarioEditar = listaPropietarios.buscarCedula(cedula);
+
+            // Abre el formulario enviando el objeto a editar
+            JDlgNewPropietario winEditar = new JDlgNewPropietario(null, true, listaPropietarios, propietarioEditar, pos);
+            winEditar.setTitle("Editar Propietario");
+            winEditar.setVisible(true);
+
+            this.listaPropietarios = winEditar.listaPropietarios;
+            muestraTabla(); // Refrescar tabla con cambios
+        } else {
+            JOptionPane.showMessageDialog(this, "️ Debe seleccionar 1 Propietario en la tabla",
+                    "Sin selección", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_BttnEditarActionPerformed
+
+    /**
+     * Cierra la ventana , volviendo al menu
+     * @param evt presionar el boton
+     */
+    private void BttnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BttnRegresarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_BttnRegresarActionPerformed
+
+    /**
+     * filtra por cedula u nombre que escriban en la barra 
+     * @param evt al editar en la barra
+     */
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+        // TODO add your handling code here:
+         String titulo[] = {"Cédula", "Nombre Completo", "Género", "Dirección", "Teléfono", "Correo"};
+        Propietario prop;
+        
+        tblModel = new DefaultTableModel(null, titulo);
+        for (int i = 0; i < listaPropietarios.getListaPropietarios().size(); i++) {
+            prop = listaPropietarios.getListaPropietarios().get(i);
+            
+            String textoBuscar = txtBuscar.getText().toLowerCase().trim();
+            if (textoBuscar.isEmpty() ||
+                prop.getCedPropiet().toLowerCase().contains(textoBuscar) ||
+                prop.getNomPropiet().toLowerCase().contains(textoBuscar)) {
+                
+                Object fila[] = {
+                    prop.getCedPropiet(),
+                    prop.getNomPropiet(),
+                    prop.getGenero(),
+                    prop.getDireccion(),
+                    prop.getTelefono(),
+                    prop.getEmail()
+                };
+                tblModel.addRow(fila);
+            }
+        }
+
+        TblPropietarios.setModel(tblModel);
+        txtCantReg.setText(String.valueOf(tblModel.getRowCount()));
+    }//GEN-LAST:event_txtBuscarActionPerformed
+
+    /**
+     * refresca automaticamnte la tabla
+     * @param evt al presionar los botones
+     */
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+         muestraTabla();
+    }//GEN-LAST:event_formWindowActivated
+
+    
+    /**
+     * llena la tabla y muestra todas las propíedades
+     */
+    private void muestraTabla() {
+        // Columnas según los campos de tu guía
+        String titulo[] = {"Cédula", "Nombre Completo", "Género", "Dirección", "Teléfono", "Correo"};
+
+        tblModel = new DefaultTableModel(null, titulo);
+        for (int i = 0; i < listaPropietarios.getListaPropietarios().size(); i++) {
+            Propietario p = listaPropietarios.getListaPropietarios().get(i);
+            Object fila[] = {
+                p.getCedPropiet(),
+                p.getNomPropiet(),
+                p.getGenero(),
+                p.getDireccion(),
+                p.getTelefono(),
+                p.getEmail()
+            };
+            tblModel.addRow(fila);
+        }
+
+        TblPropietarios.setModel(tblModel);
+        txtCantReg.setText(String.valueOf(listaPropietarios.cantidadTotal()));
+}
     /**
      * @param args the command line arguments
      */
@@ -280,23 +484,23 @@ public class JDlgMainPropietario extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton BttnEditar;
+    private javax.swing.JButton BttnEliminar;
+    private javax.swing.JButton BttnNuevo;
+    private javax.swing.JButton BttnRegresar;
+    private javax.swing.JTable TblPropietarios;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JLabel lblIconoInquilino2;
-    private javax.swing.JLabel lblTituloUsuario1;
-    private javax.swing.JLabel lblTituloUsuario2;
-    private javax.swing.JLabel lblTituloUsuario3;
-    private javax.swing.JLabel lblTituloUsuario4;
-    private javax.swing.JPanel pnlInquilino1;
+    private javax.swing.JLabel lblBuscar;
+    private javax.swing.JLabel lblIlustrativo;
+    private javax.swing.JLabel lblLogo;
+    private javax.swing.JLabel lblTituloPropietarios;
+    private javax.swing.JLabel lblTituloRegistroDePropietarios;
+    private javax.swing.JLabel lblTotalRegistrados;
+    private javax.swing.JPanel pnlOpcionesUsuarios;
+    private javax.swing.JPanel pnlPropietarios;
+    private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtCantReg;
     // End of variables declaration//GEN-END:variables
 }
